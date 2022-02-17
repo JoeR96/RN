@@ -55,6 +55,8 @@ export default ({ index }) => {
                             style={styles.input}
                             onChangeText={setAmrapResult}
                             value={amrapResult}
+                            color={'white'}
+                            size={'12'}
                         />
                         <Pressable
                             style={[styles.button, styles.buttonClose]}

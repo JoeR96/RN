@@ -15,7 +15,7 @@ PODS:
     - ExpoModulesCore
   - Expo (44.0.5):
     - ExpoModulesCore
-  - ExpoModulesCore (0.6.4):
+  - ExpoModulesCore (0.6.5):
     - React-Core
     - ReactCommon/turbomodule/core
   - EXSplashScreen (0.14.1):
@@ -223,7 +223,7 @@ PODS:
     - React-jsi (= 0.64.3)
     - React-perflogger (= 0.64.3)
   - React-jsinspector (0.64.3)
-  - react-native-safe-area-context (3.3.2):
+  - react-native-safe-area-context (3.4.0):
     - React-Core
   - React-perflogger (0.64.3)
   - React-RCTActionSheet (0.64.3):
@@ -318,7 +318,7 @@ PODS:
     - React-RCTVibration
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.10.2):
+  - RNScreens (3.11.1):
     - React-Core
     - React-RCTImage
   - Yoga (1.14.0)
@@ -463,7 +463,7 @@ SPEC CHECKSUMS:
   EXFont: 1fb13af43dc517c01c0ff21a6e32f9f9bf2ea602
   EXKeepAwake: b571c2ad8323b2fced6e907766e2549f75119471
   Expo: 337c72b7e9314e93023af79c875930db8e008275
-  ExpoModulesCore: 64abda7af7cf659d2fa092934e29c6f4ea7e849f
+  ExpoModulesCore: 32c0ccb47f477d330ee93db72505380adf0de09a
   EXSplashScreen: 7872675b95bb07c25f922b3d3dfae70c76fb5a00
   FBLazyVector: c71c5917ec0ad2de41d5d06a5855f6d5eda06971
   FBReactNativeSpec: 5618905547dc79a379a4339799bea35e48706029
@@ -479,7 +479,7 @@ SPEC CHECKSUMS:
   React-jsi: a8b09c29521c798f1783348b37b511ba7b3dbeb3
   React-jsiexecutor: df6abc9fafbecb8e5b7a5fbc5e6d4bd017d594d5
   React-jsinspector: 34e23860273a23695342f58eed3ffd3ba10c31e0
-  react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
+  react-native-safe-area-context: f4f7cc09d81ae2d39dfd13e764d718969af07080
   React-perflogger: cc76a4254d19640f1d8ad1c66fdee800414b805c
   React-RCTActionSheet: 7448f049318d8d7e8a9a1ebb742ada721757eea8
   React-RCTAnimation: fb9b3fa1a4a9f5e6ab01b3368693ce69860ba76a
@@ -493,7 +493,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 493d9abb8b23c3f84e19ae221eeba92cadcb70dc
   ReactCommon: 8fea6422328e2fc093e25c9fac67adbcf0f04fb4
   RNReanimated: 024eff8202342abf4b24e11575a16afc441dabfe
-  RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
+  RNScreens: 4d83613b50b74ed277026375dc0810893b0c347f
   Yoga: e6ecf3fa25af9d4c87e94ad7d5d292eedef49749
 
 PODFILE CHECKSUM: 06783bf009702c8c0bfdc74eaf9b91ae61fc345a

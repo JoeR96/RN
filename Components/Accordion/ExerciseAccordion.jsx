@@ -2,11 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React,{ useContext, useState, useRef,useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Transition, Transitioning } from 'react-native-reanimated';
-import { Fragment } from 'react/cjs/react.production.min';
 import { ExerciseContext } from '../DailyWorkoutView/DailyWorkoutView'
 import ChildDailyWorkoutView from '../DailyWorkoutView/WorkoutTemplates/ChildDailyWorkoutView';
 import retrieveColour from '../Utilities/Colour/TemplateColourRetriever';
-import RetrieveTemplate from '../Utilities/TemplateRetriever/RetrieveTemplate';
 
 const transition = (
     <Transition.Together>
