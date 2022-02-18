@@ -12,9 +12,51 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Dashboard" component={Dashboard} />
-        <Stack.Screen name="DailyWorkoutView" component={DailyWorkoutView} />
+      <Stack.Navigator  >
+        <Stack.Screen
+          
+          name="Dashboard"
+          component={Dashboard}
+          options={{
+            headerStyle: {
+              backgroundColor: '#FF5733',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              fontSize: 24,
+            },
+          }}
+          
+        />
+        <Stack.Screen
+          name="DailyWorkoutView"
+          component={DailyWorkoutView}
+          options={{
+            title: 'Daily Workout ',
+            headerStyle: {
+              backgroundColor: 'black',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        <Stack.Screen
+          name="Login Form"
+          component={LoginForm}
+          options={{
+            headerStyle: {
+              backgroundColor: '#FF5733',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              fontSize: 24,
+            },
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>    
   );
@@ -23,6 +65,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000000',
   },
 });

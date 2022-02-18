@@ -7,14 +7,19 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default ({navigation}) => {
     return (
-        <View>
-            <Text>HELLO</Text>
+        <View
+        style={styles.container}>
             <Pressable
                 style={styles.button}
                 onPress={() => navigation.push('DailyWorkoutView')}
             >
                 <Text style={styles.text}>Daily Workout</Text>
-
+            </Pressable>
+            <Pressable
+                style={styles.button}
+                onPress={() => navigation.push('Login Form')}
+            >
+                <Text style={styles.text}>Login Form</Text>
             </Pressable>
         </View>     
     )
@@ -43,4 +48,8 @@ const styles = StyleSheet.create({
         elevation: 3,
         backgroundColor: 'black',
     },
+    container: {
+        backgroundColor: 'grey',
+        flex: 1
+    }
 })

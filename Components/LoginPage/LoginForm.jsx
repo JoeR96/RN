@@ -1,10 +1,17 @@
 import React from 'react'
-import { View, Text, StyleSheet,TextInput , Button, TouchableOpacity} from 'react-native'
-import { Header } from 'react-native/Libraries/NewAppScreen'
-export default () => {
+import { View, Text, Image, StyleSheet,TextInput , Button, TouchableOpacity} from 'react-native'
+import Barbell from './Barbell-Transparent-Images-PNG.png'
+export default ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <Header></Header>
+            <Text
+                style={[styles.heading]}
+            >Project Power</Text>
+            <Image
+                style={styles.tinyLogo}
+                source={Barbell}
+            />
+           
             <TextInput style={styles.input}></TextInput>
             <TextInput style={styles.input}></TextInput>
             <TouchableOpacity
@@ -12,7 +19,7 @@ export default () => {
             >
                 <Text
                     style={styles.loginText}
-                    onPress={() => navigate('HomeScreen')}
+                    onPress={() => navigation.push('Dashboard')}
                     underlayColor='#fff'
                 >
                     Login
@@ -25,12 +32,16 @@ export default () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: 'black'
     },
     input: {
         height: 40,
         margin: 12,
         borderWidth: 2.5,
         padding: 10,
+        borderColor: '#fff',
+        backgroundColor: 'grey',
+
     },
     loginButton: {
         marginRight: 40,
@@ -38,7 +49,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         paddingTop: 10,
         paddingBottom: 10,
-        backgroundColor: 'orange',
+        backgroundColor: 'grey',
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#fff'
@@ -48,5 +59,18 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingLeft: 10,
         paddingRight : 10
+    },
+    tinyLogo: {
+        width: 400,
+        height: 250,
+    },
+    heading: {
+        fontSize: 56,
+        fontWeight: '900',
+        textTransform: 'uppercase',
+        letterSpacing: 2,
+        color: 'white',
+        textAlign: 'center',
+        paddingTop: 50,        
     },
 })

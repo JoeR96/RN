@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React,{useState,useEffect} from 'react'
 import { StyleSheet,View,Text } from 'react-native'
+import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 import ExerciseAccordion from '../Accordion/ExerciseAccordion';
 import useAxios, {url} from '../Utilities/UseAxios'
 
 export const ExerciseContext = React.createContext();
 export const RemoveExerciseContext = React.createContext()
 export default ({navigation}) => {
+    
     const { response, loading, error } = useAxios({
         method: 'get',
         url: 'WorkoutCreation/DailyWorkout/bzzt/',
