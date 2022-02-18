@@ -14,6 +14,20 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator  >
         <Stack.Screen
+          name="Login Form"
+          component={LoginForm}
+          options={{
+            headerStyle: {
+              backgroundColor: '#FF5733',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              fontSize: 24,
+            },
+          }}
+        />
+        <Stack.Screen
           
           name="Dashboard"
           component={Dashboard}
@@ -43,20 +57,7 @@ export default function App() {
             },
           }}
         />
-        <Stack.Screen
-          name="Login Form"
-          component={LoginForm}
-          options={{
-            headerStyle: {
-              backgroundColor: '#FF5733',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-              fontSize: 24,
-            },
-          }}
-        />
+        
       </Stack.Navigator>
     </NavigationContainer>    
   );
