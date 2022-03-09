@@ -24,7 +24,8 @@ export default ({ index }) => {
                 week: exercise.Week
             })
                 .then(exercise.exerciseCompleted = true)
-            .then(RemoveExercise(exercise.ExerciseOrder))
+                .then(RemoveExercise(exercise.ExerciseOrder))
+            console.log(id,reps,sets,week)
         }
 
     useEffect(() => {

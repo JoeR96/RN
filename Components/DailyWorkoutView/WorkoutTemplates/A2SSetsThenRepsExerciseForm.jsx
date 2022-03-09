@@ -4,36 +4,36 @@ import { Text,View,StyleSheet,Pressable } from 'react-native';
 import axios from 'axios';
 import { url } from '../../Utilities/UseAxios';
 import { RemoveExerciseContext } from '../DailyWorkoutView';
+
 export default ({ index }) => {
     const RemoveExercise = useContext(RemoveExerciseContext)
     const [setsCompleted, setSetsCompleted] = React.useState(0);
     const exercises = React.useContext(ExerciseContext);
     var exercise = exercises[index]
+
     const submit = () => {
         axios.put(url + 'WorkoutCreation/DailyWorkout/UpdateWorkOutResult', {
             id: exercise.ExerciseMasterId,
-            sets: setSetsCompleted,
+            sets: setsCompleted,
             reps: exercise.CurrentReps,
             week: exercise.Week
         })
             .then(exercise.exerciseCompleted = true)
-            .then(RemoveExercise(exercise.ExerciseOrder))
+            .then(RemoveExercise(exercise.ExerciseOrder))     
     }
 
     useEffect(() => {
-        console.log(exercise.GoalSets)
-        console.log(setsCompleted)
-    if (setsCompleted == exercise.GoalSets) {
+    if (setsCompleted == exercise.CurrentSets) {
         submit()
     }
 }, [setsCompleted])
 
-
     return (
         <View>
-            <Text style={styles.text}>Reps Per Set: {exercise.GoalReps}</Text>      
+            <Text style={styles.text}>Stack/Weight: {exercise.StartingWeight}</Text>      
+            <Text style={styles.text}>Reps Per Set: {exercise.CurrentReps}</Text>      
             <Text style={styles.text}>Sets Completed: {setsCompleted}</Text>
-            <Text style={styles.text}>Target Sets: {exercise.GoalSets}</Text>
+            <Text style={styles.text}>Target Sets: {exercise.CurrentSets}</Text>
             <Text></Text>
             <Pressable 
                 onPress={() => setSetsCompleted(setsCompleted => setsCompleted + 1)}

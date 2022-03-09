@@ -1,7 +1,7 @@
 const retrieveColour = (template, auxillaryLift) => {
     if (template === 'A2SHypertrophy')
     {
-        if (auxillaryLift) {
+        if (!auxillaryLift) {
             return '#018016'
         }
         else {

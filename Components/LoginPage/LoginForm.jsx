@@ -62,10 +62,10 @@ const styles = StyleSheet.create({
     },
     tinyLogo: {
         width: 400,
-        height: 250,
+        height: 180,
     },
     heading: {
-        fontSize: 56,
+        fontSize: 36,
         fontWeight: '900',
         textTransform: 'uppercase',
         letterSpacing: 2,
