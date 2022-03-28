@@ -14,6 +14,7 @@ export default ({navigation}) => {
         url: 'WorkoutCreation/DailyWorkout/bzzt/',
         headers: JSON.stringify({ accept: '*/*' }),    
     });
+    
     const [exercises, setExercises] = useState([]);
     const [isLoaded,setLoaded] = useState(false)
     const RemoveExercise = (index) => setExercises(exercises.filter(e => e.ExerciseOrder !== index)) 
