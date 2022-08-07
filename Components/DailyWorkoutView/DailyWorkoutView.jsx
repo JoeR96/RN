@@ -30,13 +30,12 @@ export default ({navigation}) => {
             axios.put(url + 'WorkoutCreation/UpdateDayAndWeek/bzzt')
             navigation.push('Dashboard')
             setLoaded(false);
-}
-    },[exercises])
+}},[exercises])
     if (loading === true) {
         return (
             <View>
                 <Text>
-                    loading...
+                    ... 
                 </Text>
             </View>
         )

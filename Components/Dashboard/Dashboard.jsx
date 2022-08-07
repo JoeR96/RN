@@ -4,23 +4,31 @@ import Accordion from '../Accordion/Accordion'
 import DailyWorkoutView from '../DailyWorkoutView/DailyWorkoutView'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import {Grid}
 export default ({navigation}) => {
     return (
         <View
         style={styles.container}>
-            <Pressable
-                style={styles.button}
-                onPress={() => navigation.push('DailyWorkoutView')}
-            >
-                <Text style={styles.text}>Daily Workout</Text>
-            </Pressable>
-            <Pressable
-                style={styles.button}
-                onPress={() => navigation.push('Login Form')}
-            >
-                <Text style={styles.text}>Login Form</Text>
-            </Pressable>
+           
+           
+            <Grid container>
+                <Grid item xs={3}>
+                    <Pressable
+                        style={styles.button}
+                        onPress={() => navigation.push('DailyWorkoutView')}
+                    >
+                        <Text style={styles.text}>Daily Workout</Text>
+                    </Pressable>
+                </Grid>
+                <Grid item xs={3}>
+                    <Pressable
+                        style={styles.button}
+                        onPress={() => navigation.push('Login Form')}
+                    >
+                        <Text style={styles.text}>Login Form</Text>
+                    </Pressable>
+                </Grid>
+            </Grid>
         </View>     
     )
 }
