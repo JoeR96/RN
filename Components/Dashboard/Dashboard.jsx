@@ -1,35 +1,78 @@
-import React from 'react'
-import { Text, View, StyleSheet, Pressable } from 'react-native';
-import Accordion from '../Accordion/Accordion'
-import DailyWorkoutView from '../DailyWorkoutView/DailyWorkoutView'
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Grid}
-export default ({navigation}) => {
+import React, {
+    useEffect
+} from 'react'
+import { Text, View, StyleSheet, Pressable, TouchableOpacity } from 'react-native';
+import { useSelector,useDispatch } from 'react-redux';
+import { setWorkout } from '../Utilities/userSlice';
+import axios from 'axios';
+export default ({ navigation }) => {
+    const day = useSelector((state) => state.user.day)
+    const week = useSelector((state) => state.user.week)
+    const userId = useSelector((state) => state.user.userId)
+    const userUrl = 'workout-creation/1/1/1'
+    const [ready, setReady] = React.useState(false)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        // React advises to declare the async function directly inside useEffect
+        async function getWorkout() {
+
+            const response = await axios.get(userUrl);
+            const data = await response;
+            dispatch(setWorkout(data.data.data.exercises));
+            setReady(true)
+          
+        };
+
+        // You need to restrict it at some point
+        // This is just dummy code and should be replaced by actual
+        if (!ready) {
+            getWorkout();
+        }
+
+    }, []);
     return (
-        <View
-        style={styles.container}>
+        
+        <View style={{
+            ...styles.container,
+        }}>
+            <View>
+                <Text style={styles.heading}> Day {day}</Text>
+                <Text style={styles.heading}> Week {week}</Text>
+                <Text style={styles.heading}> UserID {userId}</Text>
+                <TouchableOpacity
+                    style={styles.loginButton}
+                >
+                    <Text
+                        style={styles.loginText}
+                        onPress={() => {
+                            axios.get(userUrl).then((data) => setWorkout(data.data.data.exercises));    
+
+                        }}
+                        underlayColor='#fff'
+                    >
+                        GenWorkout
+                    </Text>
+                </TouchableOpacity>
+            </View>
+                <View
+            >
            
-           
-            <Grid container>
-                <Grid item xs={3}>
                     <Pressable
                         style={styles.button}
                         onPress={() => navigation.push('DailyWorkoutView')}
                     >
                         <Text style={styles.text}>Daily Workout</Text>
                     </Pressable>
-                </Grid>
-                <Grid item xs={3}>
                     <Pressable
                         style={styles.button}
                         onPress={() => navigation.push('Login Form')}
                     >
                         <Text style={styles.text}>Login Form</Text>
                     </Pressable>
-                </Grid>
-            </Grid>
         </View>     
+        </View>
+    
     )
 }
 

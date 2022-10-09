@@ -25,7 +25,6 @@ export default ({ index }) => {
             })
                 .then(exercise.exerciseCompleted = true)
                 .then(RemoveExercise(exercise.ExerciseOrder))
-            console.log(id,reps,sets,week)
         }
 
     useEffect(() => {
@@ -99,7 +98,6 @@ export default ({ index }) => {
     )
     }
     catch (ex) {
-        console.log(ex)
         throw ex;
     }
     

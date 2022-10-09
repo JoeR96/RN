@@ -7,10 +7,14 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import LoginForm from './Components/LoginPage/LoginForm';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import store from './store';
+import { Provider } from 'react-redux'
+
 export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator  >
         <Stack.Screen
@@ -59,7 +63,8 @@ export default function App() {
         />
         
       </Stack.Navigator>
-    </NavigationContainer>    
+      </NavigationContainer>    
+    </Provider>
   );
 }
 

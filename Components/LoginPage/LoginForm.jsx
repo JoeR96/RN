@@ -1,12 +1,17 @@
+import axios from 'axios'
 import React from 'react'
-import { View, Text, Image, StyleSheet,TextInput , Button, TouchableOpacity} from 'react-native'
+import { View, Text, Image, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { setUserId, setDay, setWeek,setJwt,setWorkout } from '.././Utilities/userSlice'
 import Barbell from './Barbell-Transparent-Images-PNG.png'
 export default ({ navigation }) => {
+    const dispatch = useDispatch()
+
     return (
         <View style={styles.container}>
             <Text
                 style={[styles.heading]}
-            >Project Power</Text>
+            >Operation Stacked - ft Ben Houlding</Text>
             <Image
                 style={styles.tinyLogo}
                 source={Barbell}
@@ -19,7 +24,26 @@ export default ({ navigation }) => {
             >
                 <Text
                     style={styles.loginText}
-                    onPress={() => navigation.push('Dashboard')}
+                    onPress={() => {
+                        axios.post('auth/login', JSON.stringify({
+                                password:"string",
+                            username: "string",
+                            emailAddress:"string"
+                            
+                        }), {
+                            headers: {
+                                'Content-Type': 'application/json',
+                            }
+                        }
+                        ).then(data => {
+                            dispatch(setDay(data.data.data.currentDay))
+                            dispatch(setWeek(data.data.data.currentWeek))
+                            dispatch(setUserId(data.data.data.userId))
+                            dispatch(setJwt(data.data.data.token))
+                        }).then(() => navigation.push('Dashboard')).catch(error => {console.log(error)})
+                        
+
+                    }}
                     underlayColor='#fff'
                 >
                     Login
