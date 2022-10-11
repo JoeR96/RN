@@ -3,7 +3,7 @@ import { Text } from 'react-native'
 import A2SHypertrophyExerciseForm from '../WorkoutTemplates/A2SHypertrophyExerciseForm'
 import A2SSetsThenRepsExerciseForm from '../WorkoutTemplates/A2SSetsThenRepsExerciseForm'
 import LinearProgressionForm from './LinearProgressionForm'
-export default ({ template, index }) => {
+export default ({ template, index,exercise }) => {
 
     switch (template) {
         case 'A2SHypertrophy':
@@ -13,7 +13,7 @@ export default ({ template, index }) => {
             return <A2SSetsThenRepsExerciseForm index={index}></A2SSetsThenRepsExerciseForm>
             break;
         case 'LinearProgression':
-            return<LinearProgressionForm index={index}></LinearProgressionForm>
+            return<LinearProgressionForm index={index} exercise={exercise}></LinearProgressionForm>
         default:
             return null;
     }

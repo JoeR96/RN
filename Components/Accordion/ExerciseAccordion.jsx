@@ -38,12 +38,10 @@ export default function ExerciseAccordion(navigation) {
                 <StatusBar hidden />
                 {
                     
-                    useSelector((state) => state.user.workout).map(( item,i ) => {
-                      
-                        var e = useSelector((state) => state.user.workout);
+                    useSelector((state) => state.user.workout).map((item, i) => {
                         return (
                             <TouchableOpacity
-                                key={item}
+                                key={i}
                                 onPress={() => {
                                     ref.current.animateNextTransition();
                                     setCurrentIndex(i === currentIndex ? null : i);
@@ -59,7 +57,7 @@ export default function ExerciseAccordion(navigation) {
                                         <View style={styles.subCategoriesList}>
                                             <Text style={[styles.body]}>
                                                 <ChildDailyWorkoutView
-                                                    item={item}
+                                                    exercise={item}
                                                     template={item.template}
                                                 ></ChildDailyWorkoutView>
                                             </Text>

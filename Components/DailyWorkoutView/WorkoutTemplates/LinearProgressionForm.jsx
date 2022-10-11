@@ -3,28 +3,34 @@ import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import useAxios from '../../Utilities/UseAxios'
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import setExerciseReps from '../../Utilities/userSlice'
-export default function LinearProgressionForm(item) {
-    var exercise = item
-    var exerciseResults = {}
-    var [sets, setSets] = React.useState(0);
+import {removeExercise, setDay} from '../../Utilities/userSlice'
+export default function LinearProgressionForm({exercise}) {
+    const wo = useSelector((state) => state.user.workout)
     const dispatch = useDispatch()
 
+    const setResult = (reps, index) => {
+        results[index] = reps;
+    }
 
+    const results = {}
     const submit = () => {
         var data = {
             id: exercise.id,
-            reps: reps,
-            sets: sets
+            reps: Object.values(results),
+            sets: 4
         }
         var json = JSON.stringify(data)
+        console.log(exercise.id)
+
         axios.post('workout-creation/complete', json, {
             headers: {
                 'Content-Type': 'application/json',
             }
+            
         }).then(
-            RemoveExercise(exercise.id)
-        )
+            console.log(wo.length)
+        ).then(dispatch(removeExercise(exercise.id))
+)
     }
     
     return (
@@ -38,16 +44,9 @@ export default function LinearProgressionForm(item) {
             </View>
             <View style={styles.buttonContainer}>
                 <Text style={styles.text}>Minimum Reps: {exercise.minimumReps}</Text>
-
-                <Text>     </Text>
                 <Text style={styles.text}>Maximum Reps: {exercise.maximumReps}</Text>
-
             </View>
-            <View>
-                {
 
-                }
-            </View>
             <View>
                 {
                     [...Array(exercise.targetSets).keys()].map((key) =>
@@ -67,7 +66,7 @@ export default function LinearProgressionForm(item) {
                                 borderWidth={5}
                                 paddingVertical={5}
                                 paddingHorizontal={5}
-                                onChangeText={(text) => dispatch(setExerciseReps({ index:key, reps:text }))}
+                                onChangeText={(text) => setResult(text,key)}
                                 value={0}
                                 maxLength={5}
                             />

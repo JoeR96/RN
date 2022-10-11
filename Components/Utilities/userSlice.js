@@ -26,13 +26,13 @@ export const userSlice = createSlice({
         setWorkout: (state, action) => {
             state.workout = action.payload
         },
-        setExerciseReps: (state, action) => {
-            state.exer = { ...state.exerciseReps, [action.payload.id]:action.payload }
-        },
+        removeExercise: (state, action) => {
+            state.workout = state.workout.filter((x => x.id !== action.payload))
+        }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { setUserId, setWeek, setDay, setJwt, setWorkout, setReps } = userSlice.actions
+export const { setUserId, setWeek, setDay, setJwt, setWorkout, removeExercise } = userSlice.actions
 
 export default userSlice.reducer

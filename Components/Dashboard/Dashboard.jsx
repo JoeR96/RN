@@ -9,7 +9,7 @@ export default ({ navigation }) => {
     const day = useSelector((state) => state.user.day)
     const week = useSelector((state) => state.user.week)
     const userId = useSelector((state) => state.user.userId)
-    const userUrl = 'workout-creation/1/1/1'
+    const userUrl = 'workout-creation/' + userId + '/' + week + '/' + day
     const [ready, setReady] = React.useState(false)
     const dispatch = useDispatch()
 
