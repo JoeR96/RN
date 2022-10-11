@@ -8,7 +8,8 @@ export const userSlice = createSlice({
         week: 1,
         jwt: '',
         workout: [],
-        exerciseReps: {}
+        exerciseReps: {},
+        username: ''
     },
     reducers: {
         setUserId: (state, action) => {
@@ -28,6 +29,9 @@ export const userSlice = createSlice({
         },
         removeExercise: (state, action) => {
             state.workout = state.workout.filter((x => x.id !== action.payload))
+        },
+        setUsername: (state, action) => {
+            state.username = action.payload
         }
     },
 })

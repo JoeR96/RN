@@ -2,7 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import { View, Text, Image, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { setUserId, setDay, setWeek,setJwt,setWorkout } from '.././Utilities/userSlice'
+import { setUserId, setDay, setWeek, setJwt, setUsername } from '.././Utilities/userSlice'
 import Barbell from './Barbell-Transparent-Images-PNG.png'
 export default ({ navigation }) => {
     const dispatch = useDispatch()
@@ -26,9 +26,9 @@ export default ({ navigation }) => {
                     style={styles.loginText}
                     onPress={() => {
                         axios.post('auth/login', JSON.stringify({
-                                password:"string",
+                                password:"bigdavetv",
                             username: "string",
-                            emailAddress:"string"
+                            emailAddress:"admin"
                             
                         }), {
                             headers: {
@@ -39,6 +39,7 @@ export default ({ navigation }) => {
                             dispatch(setDay(data.data.data.currentDay))
                             dispatch(setWeek(data.data.data.currentWeek))
                             dispatch(setUserId(data.data.data.userId))
+                            dispatch(setUsername(data.data.data.userName))
                             dispatch(setJwt(data.data.data.token))
                         }).then(() => navigation.push('Dashboard')).catch(error => {console.log(error)})
                         

@@ -4,14 +4,29 @@ import useAxios from '../../Utilities/UseAxios'
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import {removeExercise, setDay} from '../../Utilities/userSlice'
-export default function LinearProgressionForm({exercise}) {
+export default function LinearProgressionForm({exercise, navigation}) {
     const wo = useSelector((state) => state.user.workout)
+    const userId = useSelector((state) => state.user.userId)
     const dispatch = useDispatch()
 
     const setResult = (reps, index) => {
         results[index] = reps;
     }
+    const checkForProgress = () => {
+        if (wo.length === 1)
+        {
+            axios.post('user/update/' + userId, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
 
+            }).then(() => navigation.push('Dashboard')).catch(error => { console.log(error) })
+        }
+        else
+        {
+            console.log(wo)
+            }
+}
     const results = {}
     const submit = () => {
         var data = {
@@ -29,8 +44,9 @@ export default function LinearProgressionForm({exercise}) {
             
         }).then(
             console.log(wo.length)
-        ).then(dispatch(removeExercise(exercise.id))
-)
+        ).then(dispatch(removeExercise(exercise.id)))
+            .then(checkForProgress())   
+        
     }
     
     return (
@@ -53,7 +69,6 @@ export default function LinearProgressionForm({exercise}) {
                         <View>
                             <Text
                                 style={styles.loginText}
-                                onPress={() => navigation.push('Dashboard')}
                                 underlayColor='red'
                                 backgroundColor='red'
                             >

@@ -9,6 +9,8 @@ export default ({ navigation }) => {
     const day = useSelector((state) => state.user.day)
     const week = useSelector((state) => state.user.week)
     const userId = useSelector((state) => state.user.userId)
+    const username = useSelector((state) => state.user.username)
+
     const userUrl = 'workout-creation/' + userId + '/' + week + '/' + day
     const [ready, setReady] = React.useState(false)
     const dispatch = useDispatch()
@@ -37,6 +39,7 @@ export default ({ navigation }) => {
             ...styles.container,
         }}>
             <View>
+                <Text style={styles.heading}> Wagwan {username}</Text>
                 <Text style={styles.heading}> Day {day}</Text>
                 <Text style={styles.heading}> Week {week}</Text>
                 <Text style={styles.heading}> UserID {userId}</Text>
