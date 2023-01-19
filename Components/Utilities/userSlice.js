@@ -37,6 +37,6 @@ export const userSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setUserId, setWeek, setDay, setJwt, setWorkout, removeExercise } = userSlice.actions
+export const { setUserId, setWeek, setDay, setJwt, setWorkout, removeExercise,setUsername } = userSlice.actions
 
 export default userSlice.reducer

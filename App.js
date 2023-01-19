@@ -1,7 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Transitioning } from 'react-native-reanimated';
 import DailyWorkoutView from './Components/DailyWorkoutView/DailyWorkoutView';
 import Dashboard from './Components/Dashboard/Dashboard';
 import LoginForm from './Components/LoginPage/LoginForm';

@@ -39,6 +39,8 @@ export default function ExerciseAccordion(navigation) {
                 {
                     
                     useSelector((state) => state.user.workout).map((item, i) => {
+                        console.log(item)
+                        console.log(i)
                         return (
                             <TouchableOpacity
                                 key={i}
@@ -50,8 +52,8 @@ export default function ExerciseAccordion(navigation) {
                                 activeOpacity={0.9}
                             >
                                 {<View style={[styles.card, { backgroundColor: retrieveColour(item.template, item.auxillaryLift) }]}>
-                                    <Text style={[styles.heading]}>{item.exerciseName}</Text>
-                                    <Text style={[styles.subheading]}>{item.equipmentType}</Text>
+                                    <Text style={[styles.heading]}>{item.ExerciseName}</Text>
+                                    <Text style={[styles.subheading]}>{item.EquipmentType}</Text>
 
                                     {i === currentIndex && (
                                         <View style={styles.subCategoriesList}>

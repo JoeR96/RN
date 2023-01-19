@@ -18,10 +18,13 @@ export default ({ navigation }) => {
     useEffect(() => {
         // React advises to declare the async function directly inside useEffect
         async function getWorkout() {
-
             const response = await axios.get(userUrl);
-            const data = await response;
-            dispatch(setWorkout(data.data.data.exercises));
+            const tt= await response;
+            const {data } = tt
+            const {Data} = data
+            const { Exercises } = Data
+                console.log(Exercises)
+            dispatch(setWorkout(Exercises));
             setReady(true)
           
         };
@@ -43,20 +46,6 @@ export default ({ navigation }) => {
                 <Text style={styles.heading}> Day {day}</Text>
                 <Text style={styles.heading}> Week {week}</Text>
                 <Text style={styles.heading}> UserID {userId}</Text>
-                <TouchableOpacity
-                    style={styles.loginButton}
-                >
-                    <Text
-                        style={styles.loginText}
-                        onPress={() => {
-                            axios.get(userUrl).then((data) => setWorkout(data.data.data.exercises));    
-
-                        }}
-                        underlayColor='#fff'
-                    >
-                        GenWorkout
-                    </Text>
-                </TouchableOpacity>
             </View>
                 <View
             >

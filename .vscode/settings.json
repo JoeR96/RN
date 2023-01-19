@@ -1,3 +1,4 @@
 {
-    "react-native-tools.loglevel":"trace"
+    "react-native-tools.loglevel": "trace",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

@@ -4,6 +4,7 @@ import { View, Text, Image, StyleSheet, TextInput, Button, TouchableOpacity } fr
 import { useSelector, useDispatch } from 'react-redux'
 import { setUserId, setDay, setWeek, setJwt, setUsername } from '.././Utilities/userSlice'
 import Barbell from './Barbell-Transparent-Images-PNG.png'
+import { url } from '../Utilities/UseAxios' 
 export default ({ navigation }) => {
     const dispatch = useDispatch()
 
@@ -25,11 +26,12 @@ export default ({ navigation }) => {
                 <Text
                     style={styles.loginText}
                     onPress={() => {
-                        axios.post('auth/login', JSON.stringify({
-                                password:"bigdavetv",
-                            username: "string",
-                            emailAddress:"admin"
-                            
+                        console.log(url + 'auth/login')
+                        axios.post(url + 'auth/login', 
+                        JSON.stringify({
+                            username : "bigdavetv",
+                            password : "bigdavetv",
+                            EmailAddress : "bigdavetv"
                         }), {
                             headers: {
                                 'Content-Type': 'application/json',
@@ -41,7 +43,7 @@ export default ({ navigation }) => {
                             dispatch(setUserId(data.data.data.userId))
                             dispatch(setUsername(data.data.data.userName))
                             dispatch(setJwt(data.data.data.token))
-                        }).then(() => navigation.push('Dashboard')).catch(error => {console.log(error)})
+                        }).then(() => navigation.push('Dashboard')).catch(error => console.log(error))
                         
 
                     }}
