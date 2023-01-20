@@ -1,39 +1,39 @@
-import React,{useEffect,useState,useContext} from 'react'
-import { ExerciseContext } from '../DailyWorkoutView';
+import React,{useEffect,useState} from 'react'
 import { Text, View, StyleSheet,Modal,Pressable,TextInput } from 'react-native';
-import { Button } from 'react-native';
 import axios from 'axios';
 import { url } from '../../Utilities/UseAxios';
-import { RemoveExerciseContext } from '../DailyWorkoutView';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeExercise } from '../../Utilities/userSlice';
+import { isIndexedAccessTypeNode } from 'typescript';
 
-export default ({ index }) => {
-    const [submitExercise, SetSubmitExercise] = useState(false);
+export default ( {route}) => {
+    console.log(route)
+    console.log(exercise,index)
+    // console.log(index)
+    // console.log(params)
+    // console.log(exercise)
+    //const {exercise}= route.params;
     const [amrapResult, setAmrapResult] = useState(0);
     const [modalVisible, setModalVisible] = useState(false);
     const [setsCompleted, setSetsCompleted] = useState(0);
-    const exercises = useContext(ExerciseContext);
-    const RemoveExercise = useContext(RemoveExerciseContext)
-    var exercise = exercises[index]
-
+    const dispatch = useDispatch()
     try
     {
         const submit = () => {
             axios.put(url + 'WorkoutCreation/DailyWorkout/UpdateWorkOutResult', {
-                id: exercise.ExerciseMasterId,
+                id: exercise.Id,
                 reps: amrapResult,
                 week: exercise.Week
             })
-                .then(exercise.exerciseCompleted = true)
-                .then(RemoveExercise(exercise.ExerciseOrder))
+                .then(dispatch(removeExercise(exercise.id)))
         }
 
     useEffect(() => {
-        if (setsCompleted === exercise.Sets) {
+        if (setsCompleted === route["Sets"]) {
             setModalVisible(true)
         }
     }, [setsCompleted])
 
-    
     
     return (
         <View>
@@ -70,11 +70,13 @@ export default ({ index }) => {
                     </View>
                 </View>
             </Modal>
-            <Text style={styles.text}>Working Weight: {exercise.WorkingWeight} KG</Text>
-            <Text style={styles.text}>Training Max: {exercise.TrainingMax}</Text>
-            <Text style={styles.text}>Reps Per Set: {exercise.RepsPerSet} </Text>
-            <Text style={styles.text}>Target Sets: {exercise.Sets}+ </Text>
-            <Text style={styles.text}>Amrap Target: {exercise.AmrapRepTarget}</Text>
+            {console.log('r is ',route)}
+            {/* <Text style={styles.text}>Working Weight: {r["exercise"]["AmrapRepResult"].WorkingWeight} KG</Text> */}
+            {/* <Text style={styles.text}>Training Max: {r["TrainingMax"]}</Text>
+            <Text style={styles.text}>Reps Per Set: {r["RepsPerSet"]} </Text>
+            <Text style={styles.text}>Amrap Target: {r["AmrapRepTarget"]}</Text> */}
+                        {/* <Text style={styles.text}>Target Sets: {route["Sets"]}+ </Text> */}
+
             <Text style={styles.text}>Sets Completed: {setsCompleted}</Text>
             <Text></Text>
 
@@ -105,7 +107,7 @@ export default ({ index }) => {
 
 const styles = StyleSheet.create({
     text: {
-        color:"#FFFFFF",
+        color:"#AAAAAA",
         textAlign: 'center',
         fontWeight: '900',
         fontSize: 18,

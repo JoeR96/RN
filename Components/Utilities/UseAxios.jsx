@@ -14,12 +14,9 @@ const useAxios = ({ url, method, body = null, headers = null }) => {
         axios[method](url, JSON.parse(headers), JSON.parse(body))
             .then((res) => {
                 setResponse(res.data);
-                console.log(res)
-                console.log('hi')
             })
             .catch((err) => {
                 setError(err);
-                console.log(err)
             })
             .finally(() => {
                 setloading(false);

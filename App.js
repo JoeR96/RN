@@ -5,6 +5,7 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import LoginForm from './Components/LoginPage/LoginForm';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import A2SHypertrophyExerciseForm from './Components/DailyWorkoutView/WorkoutTemplates/A2SHypertrophyExerciseForm';
 import store from './store';
 import { Provider } from 'react-redux'
 
@@ -59,7 +60,20 @@ export default function App() {
             },
           }}
         />
-        
+        <Stack.Screen
+          name="A2SHypertrophyExerciseForm"
+          component={A2SHypertrophyExerciseForm}
+          options={{
+            title: 'A2S Hypertrophy Exercise ',
+            headerStyle: {
+              backgroundColor: 'green',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
       </Stack.Navigator>
       </NavigationContainer>    
     </Provider>

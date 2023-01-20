@@ -26,7 +26,6 @@ export default ({ navigation }) => {
                 <Text
                     style={styles.loginText}
                     onPress={() => {
-                        console.log(url + 'auth/login')
                         axios.post(url + 'auth/login', 
                         JSON.stringify({
                             username : "bigdavetv",

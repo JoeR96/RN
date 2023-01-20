@@ -1,22 +1,29 @@
 import React from 'react'
 import { Text } from 'react-native'
-import A2SHypertrophyExerciseForm from '../WorkoutTemplates/A2SHypertrophyExerciseForm'
-import A2SSetsThenRepsExerciseForm from '../WorkoutTemplates/A2SSetsThenRepsExerciseForm'
+import A2SHypertrophyExerciseForm from './A2SHypertrophyExerciseForm'
+import A2SSetsThenRepsExerciseForm from './A2SSetsThenRepsExerciseForm'
 import LinearProgressionForm from './LinearProgressionForm'
-export default ({ template, index,exercise }) => {
+import { useNavigation } from '@react-navigation/native'
+export default ({index,exercise}) => {
+    const nav = useNavigation();
+    nav.push('A2SHypertrophyExerciseForm', exercise)    
 
-    switch (template) {
-        case 'A2SHypertrophy':
-            return <A2SHypertrophyExerciseForm index={index}></A2SHypertrophyExerciseForm>
-            break;
-        case 'A2SRepsThenSets':
-            return <A2SSetsThenRepsExerciseForm index={index}></A2SSetsThenRepsExerciseForm>
-            break;
-        case 'LinearProgression':
-            return<LinearProgressionForm index={index} exercise={exercise}></LinearProgressionForm>
-        default:
-            return null;
+    switch (exercise.Template) {
+        case 1:
+            nav.push('A2SHypertrophyExerciseForm', exercise)   
+            return;
+        case 2:
+            nav.push('A2SHypertrophyExerciseForm', exercise)   
+            return;
+        case 0:
+            nav.push('A2SHypertrophyExerciseForm', exercise)   
+            return;
+        
     }
-    return <Text>{}</Text>
+
+    
+        return (
+            <div>Here comes JSX !</div>
+        );
 }
 

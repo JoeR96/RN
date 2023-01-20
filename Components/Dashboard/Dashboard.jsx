@@ -23,7 +23,6 @@ export default ({ navigation }) => {
             const {data } = tt
             const {Data} = data
             const { Exercises } = Data
-                console.log(Exercises)
             dispatch(setWorkout(Exercises));
             setReady(true)
           

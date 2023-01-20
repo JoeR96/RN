@@ -35,7 +35,6 @@ export default function LinearProgressionForm({exercise, navigation}) {
             sets: 4
         }
         var json = JSON.stringify(data)
-        console.log(exercise.id)
 
         axios.post('workout-creation/complete', json, {
             headers: {
@@ -43,7 +42,6 @@ export default function LinearProgressionForm({exercise, navigation}) {
             }
             
         }).then(
-            console.log(wo.length)
         ).then(dispatch(removeExercise(exercise.id)))
             .then(checkForProgress())   
         

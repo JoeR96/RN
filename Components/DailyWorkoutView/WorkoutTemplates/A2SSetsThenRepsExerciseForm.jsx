@@ -3,10 +3,8 @@ import { ExerciseContext } from '../DailyWorkoutView';
 import { Text,View,StyleSheet,Pressable } from 'react-native';
 import axios from 'axios';
 import { url } from '../../Utilities/UseAxios';
-import { RemoveExerciseContext } from '../DailyWorkoutView';
 
 export default ({ index }) => {
-    const RemoveExercise = useContext(RemoveExerciseContext)
     const [setsCompleted, setSetsCompleted] = React.useState(0);
     const exercises = React.useContext(ExerciseContext);
     var exercise = exercises[index]
@@ -18,8 +16,6 @@ export default ({ index }) => {
             reps: exercise.CurrentReps,
             week: exercise.Week
         })
-            .then(exercise.exerciseCompleted = true)
-            .then(RemoveExercise(exercise.ExerciseOrder))     
     }
 
     useEffect(() => {

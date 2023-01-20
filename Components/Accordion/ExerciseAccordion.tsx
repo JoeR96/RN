@@ -5,6 +5,7 @@ import ChildDailyWorkoutView from '../DailyWorkoutView/WorkoutTemplates/ChildDai
 import retrieveColour from '../Utilities/Colour/TemplateColourRetriever';
 import { useSelector } from 'react-redux';
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
 const transition = (
     <Transition.Together>
         <Transition.In type='fade' durationMs={200} />
@@ -13,9 +14,32 @@ const transition = (
     </Transition.Together>
 );
 
-export default function ExerciseAccordion(navigation) {
+enum equipmentType
+{
+    Barbell,
+    SmithMachine,
+    Dumbbell,
+    Machine,
+    Cable,
+}
+
+export default function ExerciseAccordion() {
+    const nav = useNavigation();
+
+    // switch (exercise.Template) {
+    //     case 1:
+    //         nav.push('A2SHypertrophyExerciseForm', exercise)   
+    //         return;
+    //     case 2:
+    //         nav.push('A2SHypertrophyExerciseForm', exercise)   
+    //         return;
+    //     case 0:
+    //         nav.push('A2SHypertrophyExerciseForm', exercise)   
+    //         return;
+            
     const [currentIndex, setCurrentIndex] = React.useState(null);
-    const ref = React.useRef();
+    var ref : any;
+    ref = React.useRef()
     const [loading, setLoading] = React.useState(false);
     //const exercises = )
 
@@ -38,9 +62,7 @@ export default function ExerciseAccordion(navigation) {
                 <StatusBar hidden />
                 {
                     
-                    useSelector((state) => state.user.workout).map((item, i) => {
-                        console.log(item)
-                        console.log(i)
+                    useSelector((state: any) => state.user.workout).map((item, i) => {
                         return (
                             <TouchableOpacity
                                 key={i}
@@ -51,16 +73,15 @@ export default function ExerciseAccordion(navigation) {
                                 style={styles.cardContainer}
                                 activeOpacity={0.9}
                             >
-                                {<View style={[styles.card, { backgroundColor: retrieveColour(item.template, item.auxillaryLift) }]}>
+                                {<View style={[styles.card, { backgroundColor: retrieveColour(item.Template) }]}>
                                     <Text style={[styles.heading]}>{item.ExerciseName}</Text>
-                                    <Text style={[styles.subheading]}>{item.EquipmentType}</Text>
-
+                                    <Text style={[styles.subheading]}>{equipmentType[item.EquipmentType]}</Text>
                                     {i === currentIndex && (
                                         <View style={styles.subCategoriesList}>
                                             <Text style={[styles.body]}>
                                                 <ChildDailyWorkoutView
+                                                    index={i}
                                                     exercise={item}
-                                                    template={item.template}
                                                 ></ChildDailyWorkoutView>
                                             </Text>
                                             
