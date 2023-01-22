@@ -2,34 +2,44 @@ import React,{useEffect,useState} from 'react'
 import { Text, View, StyleSheet,Modal,Pressable,TextInput } from 'react-native';
 import axios from 'axios';
 import { url } from '../../Utilities/UseAxios';
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import { removeExercise } from '../../Utilities/userSlice';
-import { isIndexedAccessTypeNode } from 'typescript';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 export default ( {route}) => {
-    console.log(route)
-    console.log(exercise,index)
-    // console.log(index)
-    // console.log(params)
-    // console.log(exercise)
-    //const {exercise}= route.params;
+
     const [amrapResult, setAmrapResult] = useState(0);
     const [modalVisible, setModalVisible] = useState(false);
     const [setsCompleted, setSetsCompleted] = useState(0);
     const dispatch = useDispatch()
+
+   
+    var exercise = route.params
+
+    const nav = useNavigation();
     try
     {
         const submit = () => {
-            axios.put(url + 'WorkoutCreation/DailyWorkout/UpdateWorkOutResult', {
-                id: exercise.Id,
-                reps: amrapResult,
-                week: exercise.Week
+            var d = {
+                id: route.params.Id,
+                reps: [amrapResult],
+                sets: exercise.Week
+            };
+            var json = JSON.stringify(d)
+
+            axios.post(url + 'Workout-Creation/complete', json,{
+                headers: {
+                    'Content-Type': 'application/json',
+                }
             })
                 .then(dispatch(removeExercise(exercise.id)))
+                .then(nav.push('DailyWorkoutView'))
+                              
         }
 
     useEffect(() => {
-        if (setsCompleted === route["Sets"]) {
+        if (setsCompleted === route.params.Sets) {
             setModalVisible(true)
         }
     }, [setsCompleted])
@@ -67,15 +77,24 @@ export default ( {route}) => {
                         >
                             <Text style={styles.textStyle}>Submit</Text>
                         </Pressable>
+                        <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => {
+                                setModalVisible(!modalVisible)
+                                setSetsCompleted(setsCompleted => setsCompleted - 1)
+                            }}
+                        >
+                            <Text style={styles.textStyle}>Return</Text>
+                        </Pressable>
                     </View>
                 </View>
             </Modal>
-            {console.log('r is ',route)}
-            {/* <Text style={styles.text}>Working Weight: {r["exercise"]["AmrapRepResult"].WorkingWeight} KG</Text> */}
-            {/* <Text style={styles.text}>Training Max: {r["TrainingMax"]}</Text>
-            <Text style={styles.text}>Reps Per Set: {r["RepsPerSet"]} </Text>
-            <Text style={styles.text}>Amrap Target: {r["AmrapRepTarget"]}</Text> */}
-                        {/* <Text style={styles.text}>Target Sets: {route["Sets"]}+ </Text> */}
+            <Text style={styles.text}> {route.params.ExerciseName}</Text> 
+            <Text style={styles.text}>Working Weight: {route.params.WorkingWeight} KG</Text> 
+             <Text style={styles.text}>Training Max: {route.params.TrainingMax}</Text>
+            <Text style={styles.text}>Reps Per Set: {route.params.RepsPerSet} </Text>
+            <Text style={styles.text}>Amrap Target: {route.params.AmrapRepTarget}</Text> 
+                     <Text style={styles.text}>Target Sets: {route.params.Sets}+ </Text>
 
             <Text style={styles.text}>Sets Completed: {setsCompleted}</Text>
             <Text></Text>
