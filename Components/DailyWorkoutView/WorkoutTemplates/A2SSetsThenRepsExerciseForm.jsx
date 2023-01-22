@@ -1,4 +1,4 @@
-import React, {useEffect,useContext} from 'react'
+import React, {useEffect} from 'react'
 import { ExerciseContext } from '../DailyWorkoutView';
 import { Text,View,StyleSheet,Pressable } from 'react-native';
 import axios from 'axios';

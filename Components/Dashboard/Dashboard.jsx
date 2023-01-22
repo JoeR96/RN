@@ -2,39 +2,12 @@ import React, {
     useEffect
 } from 'react'
 import { Text, View, StyleSheet, Pressable, TouchableOpacity } from 'react-native';
-import { useSelector,useDispatch } from 'react-redux';
-import { setWorkout } from '../Utilities/userSlice';
-import axios from 'axios';
+import { useSelector } from 'react-redux';
 export default ({ navigation }) => {
     const day = useSelector((state) => state.user.day)
     const week = useSelector((state) => state.user.week)
     const userId = useSelector((state) => state.user.userId)
     const username = useSelector((state) => state.user.username)
-
-    const userUrl = 'workout-creation/' + userId + '/' + week + '/' + day
-    const [ready, setReady] = React.useState(false)
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        // React advises to declare the async function directly inside useEffect
-        async function getWorkout() {
-            const response = await axios.get(userUrl);
-            const tt= await response;
-            const {data } = tt
-            const {Data} = data
-            const { Exercises } = Data
-            dispatch(setWorkout(Exercises));
-            setReady(true)
-          
-        };
-
-        // You need to restrict it at some point
-        // This is just dummy code and should be replaced by actual
-        if (!ready) {
-            getWorkout();
-        }
-
-    }, []);
     return (
         
         <View style={{

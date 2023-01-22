@@ -4,11 +4,12 @@ import useAxios from '../../Utilities/UseAxios'
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import {removeExercise, setDay} from '../../Utilities/userSlice'
-export default function LinearProgressionForm({exercise, navigation}) {
+export default function LinearProgressionForm({route, navigation}) {
+    console.log(route.params)
     const wo = useSelector((state) => state.user.workout)
     const userId = useSelector((state) => state.user.userId)
     const dispatch = useDispatch()
-
+    const exercise = route.params
     const setResult = (reps, index) => {
         results[index] = reps;
     }
@@ -43,23 +44,20 @@ export default function LinearProgressionForm({exercise, navigation}) {
             
         }).then(
         ).then(dispatch(removeExercise(exercise.id)))
-            .then(checkForProgress())   
+            .then(navigation.push('DailyWorkoutView'))   
         
     }
-    
+
     return (
-
         <View>
-            <View style={styles.buttonContainer}>
-                <Text style={styles.text}>Weight: {exercise.workingWeight}</Text>
-                <Text>     </Text>
-                <Text style={styles.text}>Target Sets: {exercise.targetSets}</Text>
+         
+            <Text style={styles.text}>Weight: {exercise.WorkingWeight}</Text>
 
-            </View>
-            <View style={styles.buttonContainer}>
-                <Text style={styles.text}>Minimum Reps: {exercise.minimumReps}</Text>
-                <Text style={styles.text}>Maximum Reps: {exercise.maximumReps}</Text>
-            </View>
+            <Text style={styles.text}>Target Sets: {exercise.TargetSets}</Text>
+            <Text style={styles.text}>Minimum Reps: {exercise.MinimumReps}</Text>
+            <Text style={styles.text}>Maximum Reps: {exercise.MaximumReps}</Text>
+
+       
 
             <View>
                 {

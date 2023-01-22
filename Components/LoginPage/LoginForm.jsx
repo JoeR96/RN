@@ -11,7 +11,7 @@ export default ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text
-                style={[styles.heading]}
+                style={[styles.heading]} 
             >Operation Stacked - ft Ben Houlding</Text>
             <Image
                 style={styles.tinyLogo}
@@ -23,6 +23,7 @@ export default ({ navigation }) => {
             <TouchableOpacity
                 style={styles.loginButton}
             >
+                {console.log(url)}
                 <Text
                     style={styles.loginText}
                     onPress={() => {
@@ -30,7 +31,7 @@ export default ({ navigation }) => {
                         JSON.stringify({
                             username : "bigdavetv",
                             password : "bigdavetv",
-                            EmailAddress : "bigdavetv"
+                            emailAddress : "bigdavetv"
                         }), {
                             headers: {
                                 'Content-Type': 'application/json',

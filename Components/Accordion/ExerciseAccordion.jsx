@@ -3,9 +3,13 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Transition, Transitioning } from 'react-native-reanimated';
 import ChildDailyWorkoutView from '../DailyWorkoutView/WorkoutTemplates/ChildDailyWorkoutView';
 import retrieveColour from '../Utilities/Colour/TemplateColourRetriever';
-import { useSelector } from 'react-redux';
-import React from 'react'
+import { useSelector,useDispatch } from 'react-redux';
+import React,{useEffect,useState} from 'react'
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+import { url } from '../Utilities/UseAxios';
+import { setWorkout } from '../Utilities/userSlice';
+
 const transition = (
     <Transition.Together>
         <Transition.In type='fade' durationMs={200} />
@@ -14,45 +18,61 @@ const transition = (
     </Transition.Together>
 );
 
-enum equipmentType
-{
-    Barbell,
-    SmithMachine,
-    Dumbbell,
-    Machine,
-    Cable,
-}
+// enum equipmentType
+// {
+//     Barbell,
+//     SmithMachine,
+//     Dumbbell,
+//     Machine,
+//     Cable,
+// }
+
+
 
 export default function ExerciseAccordion() {
-    const nav = useNavigation();
+    useEffect(() => {
+        // React advises to declare the async function directly inside useEffect   
+        getWorkout();
 
-    // switch (exercise.Template) {
-    //     case 1:
-    //         nav.push('A2SHypertrophyExerciseForm', exercise)   
-    //         return;
-    //     case 2:
-    //         nav.push('A2SHypertrophyExerciseForm', exercise)   
-    //         return;
-    //     case 0:
-    //         nav.push('A2SHypertrophyExerciseForm', exercise)   
-    //         return;
-            
+        //wtf is going on with the structure of the api response lol.
+        //this will be fixed with a typescript upgrade
+        async function getWorkout() {
+            const response = await axios.get(url + userUrl);
+            const tt= await response;
+            const {data } = tt
+            const {Data} = data
+            const { Exercises } = Data
+            dispatch(setWorkout(Exercises));
+        };
+    }, []);
+
+    const day = useSelector((state) => state.user.day);
+    const week = useSelector((state) => state.user.week);
+    const userId = useSelector((state) => state.user.userId);
+    const userUrl = 'workout-creation/' + userId + '/' + week + '/' + day;
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
     const [currentIndex, setCurrentIndex] = React.useState(null);
-    var ref : any;
-    ref = React.useRef()
-    const [loading, setLoading] = React.useState(false);
-    //const exercises = )
+    const ref = React.useRef();
+   
 
-    const finishExercise = () => {
-    }
-    if (loading) {
-        return (
-            <View><Text>Loading...</Text></View>
-        )
-    }
-    else {
-        {
-        }
+    const equipmentType = (value) => {
+        switch (value) {
+            case 0:
+                return 'Barbell';
+            case 1:
+                return 'SmithMachine';
+            case 2:
+                return 'Dumbbell';
+            case 3:
+                return 'Machine';
+            case 4:
+                return 'Cable';
+    }}
+    
+    
+
+
         return (
             <Transitioning.View
                 ref={ref}
@@ -62,23 +82,36 @@ export default function ExerciseAccordion() {
                 <StatusBar hidden />
                 {
                     
-                    useSelector((state: any) => state.user.workout).map((item, i) => {
+                    useSelector((state) => state.user.workout).map((item, i) => {
                         return (
                             <TouchableOpacity
                                 key={i}
                                 onPress={() => {
-                                    ref.current.animateNextTransition();
-                                    setCurrentIndex(i === currentIndex ? null : i);
-                                }}
+                                    // ref.current.animateNextTransition();
+                                    // setCurrentIndex(i === currentIndex ? null : i);
+                                    
+                                    switch (item.Template) {
+                                        case 2:
+                                            navigation.push('A2SRepsThenSetsForm', item)   
+                                            return;
+                                        case 1:
+                                            navigation.push('A2SHypertrophyExerciseForm', item)   
+                                            return;
+                                        case 0:
+                                            navigation.push('LinearProgressionForm', item)   
+                                            return;
+                                        
+                                }}}
                                 style={styles.cardContainer}
                                 activeOpacity={0.9}
                             >
                                 {<View style={[styles.card, { backgroundColor: retrieveColour(item.Template) }]}>
                                     <Text style={[styles.heading]}>{item.ExerciseName}</Text>
-                                    <Text style={[styles.subheading]}>{equipmentType[item.EquipmentType]}</Text>
+                                    <Text style={[styles.subheading]}>{equipmentType(item.EquipmentType)}</Text>
                                     {i === currentIndex && (
                                         <View style={styles.subCategoriesList}>
                                             <Text style={[styles.body]}>
+                                                {}
                                                 <ChildDailyWorkoutView
                                                     index={i}
                                                     exercise={item}
@@ -88,7 +121,7 @@ export default function ExerciseAccordion() {
                                         </View>
                                         
                                     )}
-                                 
+      
                                 </View>}
                                 <View
                                     style={{
@@ -103,8 +136,8 @@ export default function ExerciseAccordion() {
                     
                 </Transitioning.View>)
     }
-    }
-
+    
+    
 
     const styles = StyleSheet.create({
         container: {
