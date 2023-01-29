@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-export const url = 'https://62a1-82-9-227-227.eu.ngrok.io/'
+export const url = 'https://f626-82-9-227-227.eu.ngrok.io/'
 // 'https://operation-stacked-1.q950dfmr3n82u.eu-west-2.cs.amazonlightsail.com';
 
 axios.defaults.baseURL = 'https://a0f2-82-9-227-227.eu.ngrok.io/';

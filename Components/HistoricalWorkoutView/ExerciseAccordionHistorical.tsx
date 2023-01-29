@@ -90,13 +90,13 @@ export default ({navigation}) => {
                     })}
                     <Text>Week {useSelector((state : RootState) => state.utility.week)}</Text>
         <Text>Day {useSelector((state : RootState) => state.utility.day)}</Text>
-       <View style={{height:'20%'}}>
-        <View style={{flexDirection:"row"}}>
+       <View style={{flexDirection:"row",height:'20%'}}>
+        <View                 style={{justifyContent: 'flex-start'}}
+        >
             <Pressable
                 onPress={() => dispatch(setHistoricalWeek(week + 1))
                     
                 }
-                style={{justifyContent: 'flex-start'}}
                 >
                     <Text> + Week</Text>
                 </Pressable>
