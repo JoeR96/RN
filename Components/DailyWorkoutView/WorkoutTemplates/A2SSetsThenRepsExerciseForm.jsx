@@ -1,15 +1,13 @@
 import React, {useEffect} from 'react'
-import { ExerciseContext } from '../DailyWorkoutView';
 import { Text,View,StyleSheet,Pressable } from 'react-native';
 import axios from 'axios';
 import { url } from '../../Utilities/UseAxios';
 
 export default ({ index }) => {
     const [setsCompleted, setSetsCompleted] = React.useState(0);
-    const exercises = React.useContext(ExerciseContext);
-    var exercise = exercises[index]
-
+    var completed = false
     const submit = () => {
+        completed = true;
         axios.put(url + 'WorkoutCreation/DailyWorkout/UpdateWorkOutResult', {
             id: exercise.ExerciseMasterId,
             sets: setsCompleted,
@@ -39,12 +37,12 @@ export default ({ index }) => {
                 <Text style={styles.text}>Set Complete</Text>
 </Pressable>
             <Text></Text>
-            <Pressable 
+            {completed ? <View></View> : <Pressable 
                 onPress={submit}
                 style={styles.button}
 >
                 <Text style={styles.text}>Set Failed</Text>
-            </Pressable>
+            </Pressable>}
 
         </View>
     )
