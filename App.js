@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import DailyWorkoutView from './Components/DailyWorkoutView/DailyWorkoutView';
 import Dashboard from './Components/Dashboard/Dashboard';
 import LoginForm from './Components/LoginPage/LoginForm';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,7 +9,8 @@ import store from './store';
 import { Provider } from 'react-redux'
 import A2SSetsThenRepsExerciseForm from './Components/DailyWorkoutView/WorkoutTemplates/A2SSetsThenRepsExerciseForm';
 import LinearProgressionForm from './Components/DailyWorkoutView/WorkoutTemplates/LinearProgressionForm';
-
+import ExerciseAccordion from './Components/DailyWorkoutView/ExerciseAccordion';
+import ExerciseAccordionHistorical from './Components/HistoricalWorkoutView/ExerciseAccordionHistorical';
 export default function App() {
   const Stack = createNativeStackNavigator();
 
@@ -50,7 +50,7 @@ export default function App() {
         />
         <Stack.Screen
           name="DailyWorkoutView"
-          component={DailyWorkoutView}
+          component={ExerciseAccordion}
           options={{
             title: 'Daily Workout ',
             headerStyle: {
@@ -63,7 +63,7 @@ export default function App() {
           }}
         />
         <Stack.Screen
-          name="A2SHypertrophyExerciseForm"
+          name="A2SHypertrophy"
           component={A2SHypertrophyExerciseForm}
           options={{
             title: 'A2S Hypertrophy Exercise ',
@@ -77,7 +77,7 @@ export default function App() {
           }}
         />
         <Stack.Screen
-          name="A2SRepsThenSetsForm"
+          name="A2SRepsThenSets"
           component={A2SSetsThenRepsExerciseForm}
           options={{
             title: 'A2S Reps Then Sets Exercise ',
@@ -91,10 +91,24 @@ export default function App() {
           }}
         />
         <Stack.Screen
-          name="LinearProgressionForm"
+          name="LinearProgression"
           component={LinearProgressionForm}
           options={{
             title: 'Linear Progression ',
+            headerStyle: {
+              backgroundColor: 'gray',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+         <Stack.Screen
+          name="HistoricalWorkoutView"
+          component={ExerciseAccordionHistorical}
+          options={{
+            title: 'Historical Workout View ',
             headerStyle: {
               backgroundColor: 'gray',
             },

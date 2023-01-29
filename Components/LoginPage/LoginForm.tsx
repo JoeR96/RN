@@ -1,9 +1,8 @@
 import axios from 'axios'
 import React from 'react'
 import { View, Text, Image, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
-import { setUserId, setDay, setWeek, setJwt, setUsername } from '.././Utilities/userSlice'
-import Barbell from './Barbell-Transparent-Images-PNG.png'
+import {  useDispatch } from 'react-redux'
+import { setUserId, setDay, setWeek, setJwt, setUsername, setWorkoutsInWeek } from '../Utilities/userSlice'
 import { url } from '../Utilities/UseAxios' 
 export default ({ navigation }) => {
     const dispatch = useDispatch()
@@ -13,17 +12,16 @@ export default ({ navigation }) => {
             <Text
                 style={[styles.heading]} 
             >Operation Stacked - ft Ben Houlding</Text>
-            <Image
+            {/* <Image
                 style={styles.tinyLogo}
                 source={Barbell}
-            />
+            /> */}
            
             <TextInput style={styles.input}></TextInput>
             <TextInput style={styles.input}></TextInput>
             <TouchableOpacity
                 style={styles.loginButton}
             >
-                {console.log(url)}
                 <Text
                     style={styles.loginText}
                     onPress={() => {
@@ -41,13 +39,13 @@ export default ({ navigation }) => {
                             dispatch(setDay(data.data.data.currentDay))
                             dispatch(setWeek(data.data.data.currentWeek))
                             dispatch(setUserId(data.data.data.userId))
-                            dispatch(setUsername(data.data.data.userName))
+                            dispatch(setUsername(data.data.data.username))
                             dispatch(setJwt(data.data.data.token))
+                            dispatch(setWorkoutsInWeek(data.data.data.workoutsInWeek))
                         }).then(() => navigation.push('Dashboard')).catch(error => console.log(error))
                         
 
                     }}
-                    underlayColor='#fff'
                 >
                     Login
                 </Text>

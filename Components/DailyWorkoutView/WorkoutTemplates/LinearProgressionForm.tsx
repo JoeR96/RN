@@ -1,102 +1,100 @@
 import React from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import useAxios from '../../Utilities/UseAxios'
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import {removeExercise, setDay} from '../../Utilities/userSlice'
-export default function LinearProgressionForm({route, navigation}) {
-    console.log(route.params)
-    const wo = useSelector((state) => state.user.workout)
-    const userId = useSelector((state) => state.user.userId)
+import { RootState } from '../../../store';
+import { url } from '../../Utilities/UseAxios';
+
+export default ({route, navigation}) => {
+    const wo = useSelector((state : RootState) => state.user.workout)
+    const userId = useSelector((state : RootState) => state.user.userId)
     const dispatch = useDispatch()
     const exercise = route.params
+    var completed = true;
     const setResult = (reps, index) => {
         results[index] = reps;
     }
-    const checkForProgress = () => {
-        if (wo.length === 1)
-        {
-            axios.post('user/update/' + userId, {}, {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
+    const [reps,setReps] = React.useState(0);
+    type UpdateWorkOutRequest = {
+        id : string,
+        reps : number[],
+        sets : number
+    }
 
-            }).then(() => navigation.push('Dashboard')).catch(error => { console.log(error) })
-        }
-        else
-        {
-            console.log(wo)
-            }
-}
+    
+    
     const results = {}
+    const id = exercise.Id;
+
     const submit = () => {
-        var data = {
-            id: exercise.id,
-            reps: Object.values(results),
+        completed = false;
+        var request : UpdateWorkOutRequest = {
+            id: exercise.Id,
+            reps: [reps],
             sets: 4
         }
-        var json = JSON.stringify(data)
-
-        axios.post('workout-creation/complete', json, {
+        var json = JSON.stringify(request)
+        axios.post(url + 'workout-creation/complete', json, {
             headers: {
                 'Content-Type': 'application/json',
             }
             
         }).then(
-        ).then(dispatch(removeExercise(exercise.id)))
-            .then(navigation.push('DailyWorkoutView'))   
+        ).then(() => dispatch(removeExercise(id)))
+            .then(() => navigation.push('DailyWorkoutView'))   
         
     }
 
     return (
         <View>
-         
-            <Text style={styles.text}>Weight: {exercise.WorkingWeight}</Text>
+                                <Text style={{...styles.text,paddingTop:16,fontSize:36}}>{exercise.ExerciseName}</Text>
 
-            <Text style={styles.text}>Target Sets: {exercise.TargetSets}</Text>
-            <Text style={styles.text}>Minimum Reps: {exercise.MinimumReps}</Text>
-            <Text style={styles.text}>Maximum Reps: {exercise.MaximumReps}</Text>
-
-       
-
+         <View style={styles.row}>
+                <View >
+                    <Text style={styles.text}>Weight: {exercise.WorkingWeight}</Text>
+                    <Text style={styles.text}>Target Sets: {exercise.TargetSets}</Text>
+                </View>
+                <View >
+                    <Text style={styles.text}>Minimum Reps: {exercise.MinimumReps}</Text>
+                    <Text style={styles.text}>Maximum Reps: {exercise.MaximumReps}</Text>
+                </View>
+            </View>
             <View>
                 {
                     [...Array(exercise.targetSets).keys()].map((key) =>
                         <View>
                             <Text
                                 style={styles.loginText}
-                                underlayColor='red'
-                                backgroundColor='red'
                             >
                             </Text>
+                            <View style={{ alignItems:'center'}}>
+                                
                             <TextInput
-                                style={styles.text}
+                                style={{width:'66%',
+                               
+                            }}
                                 keyboardType='numeric'
-                                borderColor='black'
-                                borderRadius={5}
-                                borderWidth={5}
-                                paddingVertical={5}
-                                paddingHorizontal={5}
-                                onChangeText={(text) => setResult(text,key)}
-                                value={0}
+                                onChangeText={(text) => setReps(+text)}
+                                defaultValue={"0"}
                                 maxLength={5}
                             />
+                            </View>
                         </View>)
                 }                   
 
-                <View>
+                {completed ? <View>
                     <TouchableOpacity
                         style={styles.loginButton}
                     >
                         <Text
                             style={styles.loginText}
                             onPress={() => submit()}
-                            underlayColor='#fff'
                         >
                             Submit
                         </Text>
                     </TouchableOpacity>
-                </View>
+                </View> : <View><Text>Completed</Text></View>}
         </View>
         </View>
        
@@ -104,7 +102,17 @@ export default function LinearProgressionForm({route, navigation}) {
 }
 
 const styles = StyleSheet.create({
+    row:{
+        display: 'flex',
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent:'center',
+        paddingTop: 16,
+        
+    },
     text: {
+        paddingLeft: 16,
+        paddingRight: 16,
         color: "black",
         textAlign: 'center',
         fontWeight: 'bold',

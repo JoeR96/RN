@@ -14,9 +14,4 @@ const retrieveColour = (template) => {
 };
 
 export default retrieveColour;
-enum exerciseTemplate
-    {
-        LinearProgression = 0,
-        A2SHypertrophy = 1,
-        A2SRepsThenSets = 2
-    }
+

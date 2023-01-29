@@ -1,23 +1,24 @@
 import React,{useEffect,useState} from 'react'
-import { Text, View, StyleSheet,Modal,Pressable,TextInput } from 'react-native';
+import { Text, View, StyleSheet,Modal,Pressable,TextInput, Alert } from 'react-native';
 import axios from 'axios';
 import { url } from '../../Utilities/UseAxios';
-import {  useDispatch } from 'react-redux';
+import {  useDispatch, useSelector } from 'react-redux';
 import { removeExercise } from '../../Utilities/userSlice';
-import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
-
-export default ( {route}) => {
+import { RootState } from '../../../store';
+import { setSetsCompleted } from '../../Utilities/a2sSlice';
+export default ( {route,navigation}) => {
 
     const [amrapResult, setAmrapResult] = useState(0);
     const [modalVisible, setModalVisible] = useState(false);
-    const [setsCompleted, setSetsCompleted] = useState(0);
+    const [completed,setCompleted] = useState(false);
+    const exercises = useSelector((state: RootState) => state.user.workout)
+
     const dispatch = useDispatch()
-
-   
     var exercise = route.params
+    const id = exercise.Id;
 
-    const nav = useNavigation();
+    var setsCompleted = useSelector((state:RootState) => state.a2sSlice.activeSets[id])
+    isNaN(setsCompleted) ? setsCompleted = 0 : setsCompleted = setsCompleted;
     try
     {
         const submit = () => {
@@ -32,21 +33,22 @@ export default ( {route}) => {
                 headers: {
                     'Content-Type': 'application/json',
                 }
-            })
-                .then(dispatch(removeExercise(exercise.id)))
-                .then(nav.push('DailyWorkoutView'))
+            }).then(() => dispatch(removeExercise(id)))
+            .then(() => navigation.push('DailyWorkoutView')).then(() => console.log(exercises[0],id))
                               
         }
+    
 
+        useEffect(() => {
+            dispatch(setSetsCompleted({[id]: setsCompleted}))
+        },[])
     useEffect(() => {
         if (setsCompleted === route.params.Sets) {
             setModalVisible(true)
         }
     }, [setsCompleted])
-
-    
     return (
-        <View>
+        <View style={{backgroundColor:'grey',height:'100%'}}>
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -63,10 +65,7 @@ export default ( {route}) => {
                             keyboardType='numeric'
                             textAlign={'center'}
                             style={styles.input}
-                            onChangeText={setAmrapResult}
-                            value={amrapResult}
-                            color={'white'}
-                            size={'12'}
+                            onChangeText={(text) => setAmrapResult(+text)}
                         />
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
@@ -75,34 +74,42 @@ export default ( {route}) => {
                                 submit()
                             }}
                         >
-                            <Text style={styles.textStyle}>Submit</Text>
+                            <Text style={styles.text}>Submit</Text>
                         </Pressable>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={() => {
                                 setModalVisible(!modalVisible)
-                                setSetsCompleted(setsCompleted => setsCompleted - 1)
+
+
                             }}
                         >
-                            <Text style={styles.textStyle}>Return</Text>
+                            <Text style={styles.text}>Return</Text>
                         </Pressable>
                     </View>
                 </View>
             </Modal>
-            <Text style={styles.text}> {route.params.ExerciseName}</Text> 
-            <Text style={styles.text}>Working Weight: {route.params.WorkingWeight} KG</Text> 
-             <Text style={styles.text}>Training Max: {route.params.TrainingMax}</Text>
-            <Text style={styles.text}>Reps Per Set: {route.params.RepsPerSet} </Text>
-            <Text style={styles.text}>Amrap Target: {route.params.AmrapRepTarget}</Text> 
-                     <Text style={styles.text}>Target Sets: {route.params.Sets}+ </Text>
+            <View style={{alignItems:'center'}}><Text style={{...styles.heading,paddingTop:16}}>{route.params.ExerciseName}</Text></View>
 
-            <Text style={styles.text}>Sets Completed: {setsCompleted}</Text>
-            <Text></Text>
-
+            <View style={styles.row}>
+                <View >
+                    <Text style={styles.text}>Working Weight: {route.params.WorkingWeight} KG</Text> 
+                    <Text style={styles.text}>Training Max: {route.params.TrainingMax}</Text>
+                    <Text style={styles.text}>Reps Per Set: {route.params.RepsPerSet} </Text>
+                </View>
+                <View >
+                  <Text style={styles.text}>Amrap Target: {route.params.AmrapRepTarget}</Text> 
+                  <Text style={styles.text}>Target Sets: {route.params.Sets}+ </Text>
+                  <Text style={styles.text}>Sets Completed: {setsCompleted}</Text>
+                </View>
+            </View>
+            <View style={{alignItems:'center',paddingTop:32}}>
             <Pressable
                 style={styles.button}
+                onPress={() =>     dispatch(setSetsCompleted({[id]: setsCompleted + 1}))
+            }
+
                 
-                onPress={() => setSetsCompleted(setsCompleted => setsCompleted + 1)}
             >
                 <Text style={styles.text}>Set Complete</Text>
 
@@ -110,11 +117,13 @@ export default ( {route}) => {
             <Text></Text>
             <Pressable 
                 style={styles.button}
-                onPress={() => setSetsCompleted(setsCompleted => setsCompleted + 1)}
+                onPress={() => dispatch(setSetsCompleted({[id]:setsCompleted + 1}))}
             >
                 <Text style={styles.text}>Failed</Text>
 
             </Pressable>
+            </View>
+            
         </View>
     )
     }
@@ -125,8 +134,21 @@ export default ( {route}) => {
 }
 
 const styles = StyleSheet.create({
+    row:{
+        display: 'flex',
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent:'center',
+        paddingTop: 16
+    },
+    column:{
+        display: 'flex',
+        flexDirection: 'column',
+        flexBasis: '100%',
+        flex: 1,
+    },
     text: {
-        color:"#AAAAAA",
+        color:"black",
         textAlign: 'center',
         fontWeight: '900',
         fontSize: 18,
@@ -171,6 +193,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#999999',
         borderWidth: 1,
         borderColor: 'black',
+        width:'50%'
     },
     buttonOpen: {
         alignItems: 'center',
@@ -199,6 +222,6 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
-    },
+    }
 })
 
