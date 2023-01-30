@@ -143,15 +143,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   button: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 32,
-    borderRadius: 10,
-    borderWidth: 3,
+    borderRadius: 12,
     elevation: 3,
-    backgroundColor: "#5A5A5A",
-    width: "50%",
+    backgroundColor: '#999999',
+    borderWidth: 1,
+    borderColor: 'black',
+    width: '50%'
   },
   container: {
     backgroundColor: "grey",
