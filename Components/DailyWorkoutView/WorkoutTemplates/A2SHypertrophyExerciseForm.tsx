@@ -48,7 +48,7 @@ export default ( {route,navigation}) => {
         }
     }, [setsCompleted])
     return (
-        <View style={{backgroundColor:'grey',height:'100%'}}>
+        <View style={{ ...styles.PressableContainer, height: '100%' }}>
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -58,17 +58,16 @@ export default ( {route,navigation}) => {
                     setModalVisible(!modalVisible);
                 }}
             >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
+                <View>
                         <Text style={styles.text}>Amrap Result</Text>
                         <TextInput
                             keyboardType='numeric'
                             textAlign={'center'}
-                            style={styles.input}
+                            style={{}}
                             onChangeText={(text) => setAmrapResult(+text)}
                         />
                         <Pressable
-                            style={[styles.button, styles.buttonClose]}
+                            style={{}}
                             onPress={() => {
                                 setModalVisible(!modalVisible)
                                 submit()
@@ -77,7 +76,7 @@ export default ( {route,navigation}) => {
                             <Text style={styles.text}>Submit</Text>
                         </Pressable>
                         <Pressable
-                            style={[styles.button, styles.buttonClose]}
+                            style={[styles.button]}
                             onPress={() => {
                                 setModalVisible(!modalVisible)
 
@@ -86,12 +85,13 @@ export default ( {route,navigation}) => {
                         >
                             <Text style={styles.text}>Return</Text>
                         </Pressable>
-                    </View>
                 </View>
             </Modal>
-            <View style={{alignItems:'center'}}><Text style={{...styles.heading,paddingTop:16}}>{route.params.ExerciseName}</Text></View>
+            <View style={styles.PressableContainer}><Text style={styles.heading}>
+                
+                {route.params.ExerciseName}</Text></View>
 
-            <View style={styles.row}>
+            
                 <View >
                     <Text style={styles.text}>Working Weight: {route.params.WorkingWeight} KG</Text> 
                     <Text style={styles.text}>Training Max: {route.params.TrainingMax}</Text>
@@ -102,8 +102,7 @@ export default ( {route,navigation}) => {
                   <Text style={styles.text}>Target Sets: {route.params.Sets}+ </Text>
                   <Text style={styles.text}>Sets Completed: {setsCompleted}</Text>
                 </View>
-            </View>
-            <View style={{alignItems:'center',paddingTop:32}}>
+            <View >
             <Pressable
                 style={styles.button}
                 onPress={() =>     dispatch(setSetsCompleted({[id]: setsCompleted + 1}))
@@ -111,17 +110,17 @@ export default ( {route,navigation}) => {
 
                 
             >
-                <Text style={styles.text}>Set Complete</Text>
+                    <Text style={styles.pressableText}>Set Complete</Text>
 
             </Pressable>
-            <Text></Text>
             <Pressable 
                 style={styles.button}
                 onPress={() => dispatch(setSetsCompleted({[id]:setsCompleted + 1}))}
             >
-                <Text style={styles.text}>Failed</Text>
+                    <Text style={styles.pressableText}>Failed</Text>
 
-            </Pressable>
+                </Pressable>
+                
             </View>
             
         </View>
@@ -132,96 +131,42 @@ export default ( {route,navigation}) => {
     }
     
 }
-
 const styles = StyleSheet.create({
-    row:{
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        justifyContent:'center',
-        paddingTop: 16
-    },
-    column:{
-        display: 'flex',
-        flexDirection: 'column',
-        flexBasis: '100%',
-        flex: 1,
-    },
+    PressableContainer: { flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#303234'},
     text: {
-        color:"black",
-        textAlign: 'center',
-        fontWeight: '900',
-        fontSize: 18,
-        paddingVertical: 5
+        color: "white",
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: 24,
+        paddingVertical: 5,
+    },
+    pressableText: {
+        color: "black",
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: 24,
+        paddingVertical: 5,
     },
     heading: {
-        fontSize: 25,
-        fontWeight: '900',
-        textTransform: 'uppercase',
+        fontSize: 60,
+        fontWeight: "900",
+        textTransform: "uppercase",
         letterSpacing: -2,
-        textAlign: 'center'
-
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: 'rgba(52, 52, 52, 0.8)',
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
+        textAlign: "center",
+        color: 'white',
+        paddingTop: 48
     },
     button: {
-        alignItems: 'center',
-        justifyContent: 'center',
         paddingVertical: 12,
         paddingHorizontal: 32,
-        borderRadius: 12,
         elevation: 3,
         backgroundColor: '#999999',
         borderWidth: 1,
         borderColor: 'black',
-        width:'50%'
+        width: '100%',
     },
-    buttonOpen: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 12,
-        paddingHorizontal: 32,
-        borderRadius: 12,
-        elevation: 3,
-        backgroundColor: '#999999',
-        borderWidth: 1,
-        borderColor: 'black',
-    },
-    buttonClose: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 12,
-        paddingHorizontal: 32,
-        borderRadius: 12,
-        elevation: 3,
-        backgroundColor: '#999999',
-        borderWidth: 1,
-        borderColor: 'black',    },
-    input: {
-        width:  50,
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
-        padding: 10,
-    }
-})
 
+    container: {
+        backgroundColor: "grey",
+    },
+});

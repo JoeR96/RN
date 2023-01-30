@@ -2,8 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, Pressable } from 'react-native';
 import { Transition } from 'react-native-reanimated';
 import retrieveColour from '../Utilities/Colour/TemplateColourRetriever';
-import { useSelector,useDispatch } from 'react-redux';
-import React,{useEffect} from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react'
 import axios from 'axios';
 import { url } from '../Utilities/UseAxios';
 import { setHistoricalWorkout } from '../Utilities/userSlice';
@@ -13,10 +13,10 @@ import { EquipmentType, ExerciseTemplate } from '../../enums';
 import { setDay as setHistoricalDayIndex, setWeek as setHistoricalWeek } from '../Utilities/utilitySlice';
 
 
-export default ({navigation}) => {
-    const day = useSelector((state : RootState) => state.utility.day);
-    const week = useSelector((state : RootState) => state.utility.week);
-    const userId = useSelector((state : RootState) => state.user.userId);
+export default ({ navigation }) => {
+    const day = useSelector((state: RootState) => state.utility.day);
+    const week = useSelector((state: RootState) => state.utility.week);
+    const userId = useSelector((state: RootState) => state.user.userId);
     const userUrl = 'workout-creation/' + userId + '/' + week + '/' + day + '/' + 'true';
     const dispatch = useDispatch();
     const [currentIndex, setCurrentIndex] = React.useState(null);
@@ -37,134 +37,145 @@ export default ({navigation}) => {
         //this will be fixed with a typescript upgrade
         async function getHistoricalWorkout() {
             const response = await axios.get(url + userUrl);
-            const tt= await response;
-            const {data } = tt
-            const {Data} = data
+            const tt = await response;
+            const { data } = tt
+            const { Data } = data
             const { Exercises } = Data
             dispatch(setHistoricalWorkout(Exercises));
         };
-    },[week,day]);
+    }, [week, day]);
 
 
-   var workoutsInWeek = useSelector((state : RootState) => state.user.workoutsInWeek);
-        return (
-            <View
-                style={styles.container}
-            >         
-                <StatusBar hidden />
-                {
-                    
-                    useSelector((state : RootState) => state.user.historicalWorkout).map((item : Exercise, i) => {
-                        return (
-                            <TouchableOpacity
-                                key={i}
-                                onPress={() => {
-                                    navigation.push(ExerciseTemplate[item.Template],item)
-                                    }}
-                                style={styles.cardContainer}
-                                activeOpacity={0.9}
-                            >
-                                {<View style={[styles.card, { backgroundColor: retrieveColour(item.Template)}]}>
-                                    <Text style={[styles.heading]}>{item.ExerciseName}</Text>
-                                    <Text style={[styles.subheading]}>{EquipmentType[item.Template]}</Text>
-                                    {i === currentIndex && (
-                                        <View style={styles.subCategoriesList}>
-                                            <Text style={[styles.body]}>
-                                               
-                                            </Text>
-                                            
-                                        </View>
-                                        
-                                    )}
-      
-                                </View>}
-                                <View
-                                    style={{
-                                        borderBottomColor: 'black',
-                                        borderBottomWidth: 4,
-                                        
-                                    }}
-                                />
-                            </TouchableOpacity>
-                        )
-                    })}
-                    <Text>Week {useSelector((state : RootState) => state.utility.week)}</Text>
-        <Text>Day {useSelector((state : RootState) => state.utility.day)}</Text>
-       <View >
-        <View               
+    var workoutsInWeek = useSelector((state: RootState) => state.user.workoutsInWeek);
+    return (
+        <View
+            style={styles.container}
         >
-            <Pressable
-                onPress={() => dispatch(setHistoricalWeek(week + 1))
-                    
-                }
-                >
-                    <Text> + Week</Text>
-                </Pressable>
-                <Pressable             
+            <StatusBar hidden />
+            {
 
-                onPress={() => week > 1 ? dispatch(setHistoricalWeek(week - 1)) : dispatch(setHistoricalWeek(week))
-                    
-                }
-                >
-                    <Text> - Week</Text>
-                </Pressable>
-        </View>
-            <View style={{flexDirection:"row"}}>
+                useSelector((state: RootState) => state.user.historicalWorkout).map((item: Exercise, i) => {
+                    return (
+                        <TouchableOpacity
+                            key={i}
+                            onPress={() => {
+                                navigation.push(ExerciseTemplate[item.Template], item)
+                            }}
+                            style={styles.cardContainer}
+                            activeOpacity={0.9}
+                        >
+                            {<View style={[styles.card, { backgroundColor: retrieveColour(item.Template) }]}>
+                                <Text style={[styles.heading]}>{item.ExerciseName}</Text>
+                                <Text style={[styles.subheading]}>{EquipmentType[item.Template]}</Text>
+                                {i === currentIndex && (
+                                    <View style={styles.subCategoriesList}>
+                                        <Text style={[styles.body]}>
+
+                                        </Text>
+
+                                    </View>
+
+                                )}
+
+                            </View>}
+                            <View
+                                style={{
+                                    borderBottomColor: 'black',
+                                    borderBottomWidth: 4,
+
+                                }}
+                            />
+                        </TouchableOpacity>
+                    )
+                })}
+            <View style={styles.PressableContainer}>
+                <Text style={styles.text}>Week {useSelector((state: RootState) => state.utility.week)}</Text>
+                <Text style={styles.text}>Day {useSelector((state: RootState) => state.utility.day)}</Text>
+            </View>
+            <View style={styles.PressableContainer}>
                 <Pressable
+                    onPress={() => dispatch(setHistoricalWeek(week + 1))
 
-                onPress={() => day < workoutsInWeek ? dispatch(setHistoricalDayIndex(day + 1)) : multiDispatch() 
+                    }
+                    style={styles.Pressable}
 
-                }
                 >
-                    <Text> + Day</Text>
+                    <Text style={styles.text}> + Week</Text>
+                </Pressable>
+          
+                <Pressable
+                    style={styles.Pressable}
+
+                    onPress={() => day < workoutsInWeek ? dispatch(setHistoricalDayIndex(day + 1)) : multiDispatch()
+
+                    }
+                >
+                    <Text style={styles.text}> + Day</Text>
+                </Pressable>
+                
+            </View>
+            <View style={styles.PressableContainer}>
+                <Pressable
+                    style={styles.Pressable}
+                    onPress={() => week > 1 ? dispatch(setHistoricalWeek(week - 1)) : dispatch(setHistoricalWeek(week))
+
+                    }
+                >
+                    <Text style={styles.text}> - Week</Text>
                 </Pressable>
                 <Pressable
+                    style={styles.Pressable}
 
-                onPress={() => day > 1 ? dispatch(setHistoricalDayIndex(day - 1)) : multiDispatchDecrease()
+                    onPress={() => day > 1 ? dispatch(setHistoricalDayIndex(day - 1)) : multiDispatchDecrease()
 
-                }
+                    }
                 >
-                    <Text> - Day</Text>
+                    <Text style={styles.text}> - Day</Text>
                 </Pressable>
             </View>
-       </View>
-                </View>)
-    }
-    
-   
+        </View>)
+}
 
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            backgroundColor: '#fff',
-            justifyContent: 'center',
-        },
-        cardContainer: {
-            flexGrow: 1,
-        },
-        card: {
-            flexGrow: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        heading: {
-            fontSize: 38,
-            fontWeight: '900',
-            textTransform: 'uppercase',
-            letterSpacing: -2,
-        },
-        subheading: {
-            fontSize: 24,
-            fontWeight: '600',
-            textTransform: 'uppercase',
-            letterSpacing: -2,
-        },
-        body: {
-            fontSize: 20,
-            lineHeight: 20 * 1.5,
-            textAlign: 'center',
-        },
-        subCategoriesList: {
-            marginTop: 20,
-        },
-    });
+
+
+const styles = StyleSheet.create({
+    text: { fontSize: 24 },
+    Pressable: {
+        padding: 20,
+        borderColor:'black',
+    backgroundColor:'grey'},
+    PressableContainer: { flexDirection: 'row', justifyContent: 'space-around', },
+    container: {
+        flex: 1,
+        backgroundColor: '#5a5a5a',
+        justifyContent: 'center',
+    },
+    cardContainer: {
+        flexGrow: 1,
+    },
+    card: {
+        flexGrow: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    heading: {
+        fontSize: 38,
+        fontWeight: '900',
+        textTransform: 'uppercase',
+        letterSpacing: -2,
+    },
+    subheading: {
+        fontSize: 24,
+        fontWeight: '600',
+        textTransform: 'uppercase',
+        letterSpacing: -2,
+    },
+    body: {
+        fontSize: 20,
+        lineHeight: 20 * 1.5,
+        textAlign: 'center',
+    },
+    subCategoriesList: {
+        marginTop: 20,
+    },
+});

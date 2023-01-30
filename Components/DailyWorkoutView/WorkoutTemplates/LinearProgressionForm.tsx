@@ -47,12 +47,12 @@ export default ({route, navigation}) => {
     }
 
     return (
-        <View>
+        <View style={{ ...styles.PressableContainer, height:'100%'}}> 
                                 <Text style={{...styles.text,paddingTop:16,fontSize:36}}>{exercise.ExerciseName}</Text>
 
-         <View style={styles.row}>
+         <View>
                 <View >
-                    <Text style={styles.text}>Weight: {exercise.WorkingWeight}</Text>
+                    <Text style={styles.text}>Weight: {exercise.WorkingWeight}KG</Text>
                     <Text style={styles.text}>Target Sets: {exercise.TargetSets}</Text>
                 </View>
                 <View >
@@ -65,15 +65,14 @@ export default ({route, navigation}) => {
                     [...Array(exercise.targetSets).keys()].map((key) =>
                         <View>
                             <Text
-                                style={styles.loginText}
+                                style={styles.text}
                             >
                             </Text>
                             <View style={{ alignItems:'center'}}>
                                 
                             <TextInput
-                                style={{width:'66%',
-                               
-                            }}
+                                    style={{ ...styles.button,textAlign:'center',fontSize:24,fontWeight:'600'}
+                            }
                                 keyboardType='numeric'
                                 onChangeText={(text) => setReps(+text)}
                                 defaultValue={"0"}
@@ -85,10 +84,10 @@ export default ({route, navigation}) => {
 
                 {completed ? <View>
                     <TouchableOpacity
-                        style={styles.loginButton}
+                        style={styles.button}
                     >
                         <Text
-                            style={styles.loginText}
+                            style={styles.text}
                             onPress={() => submit()}
                         >
                             Submit
@@ -102,66 +101,41 @@ export default ({route, navigation}) => {
 }
 
 const styles = StyleSheet.create({
-    row:{
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        justifyContent:'center',
-        paddingTop: 16,
-        
-    },
+    PressableContainer: { flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#303234' },
     text: {
-        paddingLeft: 16,
-        paddingRight: 16,
+        color: "white",
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: 24,
+        paddingVertical: 5,
+    },
+    pressableText: {
         color: "black",
-        textAlign: 'center',
-        fontWeight: 'bold',
-        fontSize: 18,
-        paddingVertical: 5
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: 24,
+        paddingVertical: 5,
     },
     heading: {
-        fontSize: 25,
-        fontWeight: '900',
-        textTransform: 'uppercase',
+        fontSize: 60,
+        fontWeight: "900",
+        textTransform: "uppercase",
         letterSpacing: -2,
+        textAlign: "center",
+        color: 'white',
+        paddingTop: 48
     },
     button: {
-        alignItems: 'center',
-        justifyContent: 'center',
         paddingVertical: 12,
         paddingHorizontal: 32,
-        borderRadius: 12,
         elevation: 3,
-        backgroundColor: '#555555',
-        borderWidth: 5,
-        borderColor: 'black',
-        paddingTop: 5,
-        paddingBottom: 5
-    },
-    buttonContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
-        
-    },
-    textInput: {
-        
-    }, loginButton: {
-        marginRight: 40,
-        marginLeft: 40,
-        marginTop: 10,
-        paddingTop: 10,
-        paddingBottom: 10,
-        backgroundColor: 'grey',
-        borderRadius: 10,
+        backgroundColor: '#999999',
         borderWidth: 1,
-        borderColor: '#fff'
+        borderColor: 'black',
+        width: '100%',
     },
-    loginText: {
-        color: 'white',
-        textAlign: 'center',
-        paddingLeft: 10,
-        paddingRight: 10
-    },
-})
 
+    container: {
+        backgroundColor: "grey",
+    },
+});

@@ -22,7 +22,7 @@ export default ({ navigation }) => {
     (state: RootState) => state.user.workoutIsSet
   );
   const dispatch = useDispatch();
-  const [trigger,setTrigger] = React.useState(0);
+  const [trigger, setTrigger] = React.useState(0);
   useEffect(() => {
     // React advises to declare the async function directly inside useEffect
     if (workoutIsSet) {
@@ -43,8 +43,8 @@ export default ({ navigation }) => {
   }, []);
   useEffect(() => {
     // React advises to declare the async function directly inside useEffect
-      getWorkout();
-    
+    getWorkout();
+
 
     //wtf is going on with the structure of the api response lol.
     //this will be fixed with a typescript upgrade
@@ -56,79 +56,76 @@ export default ({ navigation }) => {
       const { Exercises } = Data;
       dispatch(setWorkout(Exercises));
       dispatch(setWorkoutIsSet(true));
-      console.log('hello')
     }
   }, [trigger]);
   return (
-    <View style={styles.container}>
-      <View>
+    <View style={styles.PressableContainer}>
+      <View style={{height:'25%'}}>
         <Text style={styles.heading}> Wagwan {username}</Text>
+      </View>
+      <View style={{ height: '25%' }}>
         <Text style={styles.text}> Day {day}</Text>
         <Text style={styles.text}> Week {week}</Text>
         <Text style={styles.text}> UserID {userId}</Text>
       </View>
-      <View style={{flex:1,
-    alignItems:'center',
-    justifyContent:'center',
-    padding:10}}>
-         <View style={{}}>
-          <Pressable
-            style={styles.button}
-            onPress={() => setTrigger(1)}
-          >
-            <Text style={styles.text}>Get Workout</Text>
-          </Pressable>
-        </View>
-        <View style={{}}>
-          <Pressable
-            style={styles.button}
-            onPress={() => navigation.navigate("DailyWorkoutView")}
-          >
-            <Text style={styles.text}>Daily Workout</Text>
-          </Pressable>
-        </View>
-        <View style={{ }}>
-          <Pressable
-            style={styles.button}
-            onPress={() => navigation.navigate("HistoricalWorkoutView")}
-          >
-            <Text style={styles.text}>Historical Workout View</Text>
-          </Pressable>
-        </View>
-        <View style={{  }}>
-          <Pressable
-            style={styles.button}
-            onPress={() => navigation.navigate("Login Form")}
-          >
-            <Text style={styles.text}>Logout</Text>
-          </Pressable>
-        </View>
-        <View style={{  }}>
-          <Pressable
-            style={styles.button}
-            onPress={() =>
-              axios
-                .post(url + "user/update/", JSON.stringify(userId), {
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                })
-                .then((data) => {
-                  dispatch(setDay(data.data.day));
-                  dispatch(setWeek(data.data.week));
-                })
-            }
-          >
-            <Text style={styles.text}>Finish Workout</Text>
-          </Pressable>
-        </View>
-      </View> 
+
+      <View style={{ height: '50%' }}>
+        <Pressable
+          style={styles.button}
+          onPress={() => setTrigger(1)}
+        >
+          <Text style={styles.pressableText}>Get Workout</Text>
+        </Pressable>
+        <Pressable
+          style={styles.button}
+          onPress={() => navigation.navigate("DailyWorkoutView")}
+        >
+          <Text style={styles.pressableText}>Daily Workout</Text>
+        </Pressable>
+        <Pressable
+          style={styles.button}
+          onPress={() => navigation.navigate("HistoricalWorkoutView")}
+        >
+          <Text style={styles.pressableText}>Historical Workout View</Text>
+        </Pressable>
+        <Pressable
+          style={styles.button}
+          onPress={() => navigation.navigate("Login Form")}
+        >
+          <Text style={styles.pressableText}>Logout</Text>
+        </Pressable>
+        <Pressable
+          style={{ ...styles.button }}
+          onPress={() =>
+            axios
+              .post(url + "user/update/", JSON.stringify(userId), {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              })
+              .then((data) => {
+                dispatch(setDay(data.data.day));
+                dispatch(setWeek(data.data.week));
+              })
+          }
+        >
+          <Text style={styles.pressableText}>Finish Workout</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  PressableContainer: { flexDirection: 'column', justifyContent: 'space-between',backgroundColor:'#303234' },
   text: {
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 24,
+    paddingVertical: 5,
+  },
+  pressableText: {
     color: "black",
     textAlign: "center",
     fontWeight: "bold",
@@ -141,21 +138,20 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     letterSpacing: -2,
     textAlign: "center",
+    color: 'white',
+    paddingTop:48
   },
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 32,
-    borderRadius: 12,
     elevation: 3,
     backgroundColor: '#999999',
     borderWidth: 1,
     borderColor: 'black',
-    width: '50%'
+    width: '100%',
   },
+
   container: {
     backgroundColor: "grey",
-    flex: 1,
   },
 });
