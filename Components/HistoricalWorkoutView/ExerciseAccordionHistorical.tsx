@@ -90,8 +90,8 @@ export default ({navigation}) => {
                     })}
                     <Text>Week {useSelector((state : RootState) => state.utility.week)}</Text>
         <Text>Day {useSelector((state : RootState) => state.utility.day)}</Text>
-       <View style={{flexDirection:"row",height:'20%'}}>
-        <View                 style={{justifyContent: 'flex-start'}}
+       <View >
+        <View               
         >
             <Pressable
                 onPress={() => dispatch(setHistoricalWeek(week + 1))
@@ -100,18 +100,17 @@ export default ({navigation}) => {
                 >
                     <Text> + Week</Text>
                 </Pressable>
-                <Pressable
+                <Pressable             
+
                 onPress={() => week > 1 ? dispatch(setHistoricalWeek(week - 1)) : dispatch(setHistoricalWeek(week))
                     
                 }
-                style={{justifyContent: 'flex-end'}}
                 >
                     <Text> - Week</Text>
                 </Pressable>
         </View>
             <View style={{flexDirection:"row"}}>
                 <Pressable
-                                    style={{justifyContent: 'flex-start'}}
 
                 onPress={() => day < workoutsInWeek ? dispatch(setHistoricalDayIndex(day + 1)) : multiDispatch() 
 
@@ -120,7 +119,6 @@ export default ({navigation}) => {
                     <Text> + Day</Text>
                 </Pressable>
                 <Pressable
-                                    style={{justifyContent: 'flex-end'}}
 
                 onPress={() => day > 1 ? dispatch(setHistoricalDayIndex(day - 1)) : multiDispatchDecrease()
 
