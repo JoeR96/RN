@@ -63,6 +63,9 @@ export default ({ navigation }) => {
       <View style={{height:'25%'}}>
         <Text style={styles.heading}> Wagwan {username}</Text>
       </View>
+      <View>
+        
+      </View>
       <View style={{ height: '25%' }}>
         <Text style={styles.text}> Day {day}</Text>
         <Text style={styles.text}> Week {week}</Text>

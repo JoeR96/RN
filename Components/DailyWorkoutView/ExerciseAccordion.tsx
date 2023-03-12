@@ -22,12 +22,6 @@ export default ({navigation}) => {
     console.log(workoutIsSet)
     const ref = React.useRef();
     
-
-
-
-   
-
-
         return (
             <View
                 style={styles.container}
@@ -37,7 +31,7 @@ export default ({navigation}) => {
                     
                     exercises.map((item : Exercise, i) => {
                         return (
-                            <TouchableOpacity
+                            <TouchableOpacity   
                                 key={i}
                                 onPress={() => {
                                     navigation.push(ExerciseTemplate[item.Template],item)

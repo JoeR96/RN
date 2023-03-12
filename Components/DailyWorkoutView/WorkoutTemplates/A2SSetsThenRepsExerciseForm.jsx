@@ -21,10 +21,10 @@ export default ({ index }) => {
         submit()
     }
 }, [setsCompleted])
-
+    
     return (
         <View>
-            <Text style={styles.text}>Stack/Weight: {exercise.StartingWeight}KG</Text>      
+            <Text style={styles.text}>Stack/Weight: {exercise.StartingWeight}</Text>      
             <Text style={styles.text}>Reps Per Set: {exercise.CurrentReps}</Text>      
             <Text style={styles.text}>Sets Completed: {setsCompleted}</Text>
             <Text style={styles.text}>Target Sets: {exercise.CurrentSets}</Text>

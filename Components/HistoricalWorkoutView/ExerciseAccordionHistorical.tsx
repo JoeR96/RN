@@ -51,6 +51,11 @@ export default ({ navigation }) => {
         <View
             style={styles.container}
         >
+            <View style={{flexDirection:'row',justifyContent:'space-around'}}>
+                <Text style={styles.text}>Week {useSelector((state: RootState) => state.utility.week)}</Text>
+                <Text style={styles.text}>Day {useSelector((state: RootState) => state.utility.day)}</Text>
+
+            </View>
             <StatusBar hidden />
             {
 
@@ -88,23 +93,21 @@ export default ({ navigation }) => {
                         </TouchableOpacity>
                     )
                 })}
+              
             <View style={styles.PressableContainer}>
-                <Text style={styles.text}>Week {useSelector((state: RootState) => state.utility.week)}</Text>
-                <Text style={styles.text}>Day {useSelector((state: RootState) => state.utility.day)}</Text>
-            </View>
-            <View style={styles.PressableContainer}>
+                
                 <Pressable
                     onPress={() => dispatch(setHistoricalWeek(week + 1))
 
                     }
-                    style={styles.Pressable}
+                    style={{ ...styles.Pressable, width: '50%' ,borderWidth:1}}
 
                 >
                     <Text style={styles.text}> + Week</Text>
                 </Pressable>
           
                 <Pressable
-                    style={styles.Pressable}
+                    style={{ ...styles.Pressable, width: '50%', borderWidth: 1 }}
 
                     onPress={() => day < workoutsInWeek ? dispatch(setHistoricalDayIndex(day + 1)) : multiDispatch()
 
@@ -116,7 +119,7 @@ export default ({ navigation }) => {
             </View>
             <View style={styles.PressableContainer}>
                 <Pressable
-                    style={styles.Pressable}
+                    style={{ ...styles.Pressable, width: '50%', borderWidth: 1 }}
                     onPress={() => week > 1 ? dispatch(setHistoricalWeek(week - 1)) : dispatch(setHistoricalWeek(week))
 
                     }
@@ -124,7 +127,7 @@ export default ({ navigation }) => {
                     <Text style={styles.text}> - Week</Text>
                 </Pressable>
                 <Pressable
-                    style={styles.Pressable}
+                    style={{ ...styles.Pressable, width: '50%', borderWidth: 1 }}
 
                     onPress={() => day > 1 ? dispatch(setHistoricalDayIndex(day - 1)) : multiDispatchDecrease()
 
@@ -139,12 +142,12 @@ export default ({ navigation }) => {
 
 
 const styles = StyleSheet.create({
-    text: { fontSize: 24 },
+    text: { fontSize: 24,textAlign:'center',fontWeight:'600' },
     Pressable: {
         padding: 20,
         borderColor:'black',
     backgroundColor:'grey'},
-    PressableContainer: { flexDirection: 'row', justifyContent: 'space-around', },
+    PressableContainer: { flexDirection: 'row', justifyContent: 'space-between', },
     container: {
         flex: 1,
         backgroundColor: '#5a5a5a',
