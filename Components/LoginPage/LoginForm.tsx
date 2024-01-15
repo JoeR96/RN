@@ -24,28 +24,7 @@ export default ({ navigation }) => {
             >
                 <Text
                     style={styles.loginText}
-                    onPress={() => {
-                        axios.post(url + 'auth/login', 
-                        JSON.stringify({
-                            username : "bigdavetv",
-                            password : "bigdavetv",
-                            emailAddress : "bigdavetv"
-                        }), {
-                            headers: {
-                                'Content-Type': 'application/json',
-                            }
-                        }
-                        ).then(data => {
-                            dispatch(setDay(data.data.data.currentDay))
-                            dispatch(setWeek(data.data.data.currentWeek))
-                            dispatch(setUserId(data.data.data.userId))
-                            dispatch(setUsername(data.data.data.username))
-                            dispatch(setJwt(data.data.data.token))
-                            dispatch(setWorkoutsInWeek(data.data.data.workoutsInWeek))
-                        }).then(() => navigation.push('Dashboard')).catch(error => console.log(error))
-                        
-
-                    }}
+                   
                 >
                     Login
                 </Text>

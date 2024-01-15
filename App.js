@@ -1,7 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Dashboard from './Components/Dashboard/Dashboard';
-import LoginForm from './Components/LoginPage/LoginForm';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import A2SHypertrophyExerciseForm from './Components/DailyWorkoutView/WorkoutTemplates/A2SHypertrophyExerciseForm';
@@ -11,6 +9,8 @@ import A2SSetsThenRepsExerciseForm from './Components/DailyWorkoutView/WorkoutTe
 import LinearProgressionForm from './Components/DailyWorkoutView/WorkoutTemplates/LinearProgressionForm';
 import ExerciseAccordion from './Components/DailyWorkoutView/ExerciseAccordion';
 import ExerciseAccordionHistorical from './Components/HistoricalWorkoutView/ExerciseAccordionHistorical';
+import LoginScreen from './Views/LoginScreen.tsx'
+import Dashboard from './Views/Dashboard.tsx'
 export default function App() {
   const Stack = createNativeStackNavigator();
 
@@ -20,7 +20,7 @@ export default function App() {
       <Stack.Navigator  >
         <Stack.Screen
           name="Login Form"
-          component={LoginForm}
+          component={LoginScreen}
           options={{
             headerStyle: {
               backgroundColor: '#FF5733',
